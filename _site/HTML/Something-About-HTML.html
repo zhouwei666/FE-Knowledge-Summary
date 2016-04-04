@@ -1,0 +1,145 @@
+<h2 id="something-about-htmlto-be-continue">Something About HTML(To Be Continue)</h2>
+
+<ul>
+  <li><a href="#doctype">(一) Doctype</a><br /></li>
+  <li><a href="#svgcanvas">(二) SVG和Canvas</a><br /></li>
+  <li><a href="#webw3c">(三) 对WEB标准的理解，以及对W3C组织的认识</a><br /></li>
+  <li><a href="xhtmlhtml">(四) XHTML和HTML</a><br /></li>
+</ul>
+
+<h3 id="doctype">(一) Doctype</h3>
+
+<ol>
+  <li>
+    <p>定义:</p>
+
+    <p><code class="highlighter-rouge">&lt;!DOCTYPE&gt;</code>是指示web浏览器关于页面使用哪个 HTML 版本进行编写与渲染页面的指令;</p>
+  </li>
+  <li>
+    <p>作用:</p>
+
+    <p>确保HTML元素能够在绝大多数的浏览器上呈现;另外,一般浏览器默认都会使用怪异模式解析渲染页面,doctype的出现能够使浏览器严格遵守标准模式(即让浏览器按照符合W3C的标准解析渲染页面);</p>
+  </li>
+</ol>
+
+<h3 id="svgcanvas">(二) SVG和Canvas</h3>
+
+<ol>
+  <li>
+    <p>定义:</p>
+
+    <ul>
+      <li>
+        <p>SVG:</p>
+
+        <ul>
+          <li>SVG 指可伸缩矢量图形 (Scalable Vector Graphics)</li>
+          <li>SVG 用于定义用于网络的基于矢量的图形</li>
+          <li>SVG 使用 XML 格式定义图形</li>
+          <li>SVG 图像在放大或改变尺寸的情况下其图形质量不会有损失</li>
+          <li>SVG 是万维网联盟的标准</li>
+        </ul>
+      </li>
+      <li>
+        <p>Canvas:</p>
+
+        <ul>
+          <li><code class="highlighter-rouge">&lt;canvas&gt;</code>元素用于图形的绘制，通过脚本 (通常是JavaScript)来完成</li>
+          <li><code class="highlighter-rouge">&lt;canvas&gt;</code>标签只是图形容器，您必须使用脚本来绘制图形</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>区别:</p>
+
+    <ul>
+      <li>SVG 是一种使用 XML 描述 2D 图形的语言</li>
+      <li>Canvas 通过 JavaScript 来绘制 2D 图形</li>
+      <li>SVG 基于 XML，这意味着SVG  DOM中的每个元素都是可用的。您可以为某个元素附加 JavaScript 事件处理器,在 SVG 中，每个被绘制的图形均被视为对象。如果SVG对象的属性发生变化，那么浏览器能够自动重现图形</li>
+      <li>Canvas 是逐像素进行渲染的。在 canvas 中，一旦图形被绘制完成，它就不会继续得到浏览器的关注。如果其位置发生变化，那么整个场景也需要重新绘制，包括任何或许已被图形覆盖的对象</li>
+    </ul>
+  </li>
+  <li>
+    <p>比较:</p>
+
+    <ul>
+      <li>SVG:
+        <ul>
+          <li>不依赖分辨率</li>
+          <li>支持事件处理器</li>
+          <li>最适合带有大型渲染区域的应用程序(比如谷歌地图)</li>
+          <li>复杂度高会减慢渲染速度（任何过度使用 DOM 的应用都不快）</li>
+          <li>不适合游戏应用</li>
+        </ul>
+      </li>
+      <li>Canvas:
+        <ul>
+          <li>依赖分辨率</li>
+          <li>不支持事件处理器</li>
+          <li>弱的文本渲染能力</li>
+          <li>能够以 .png 或 .jpg 格式保存结果图像</li>
+          <li>最适合图像密集型的游戏，其中的许多对象会被频繁重绘</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ol>
+
+<h3 id="webw3c">(三) 对WEB标准的理解，以及对W3C组织的认识</h3>
+
+<ol>
+  <li>web标准规范要求，书写标签必须闭合、标签小写、不乱嵌套，可提高搜索机器人对网页内容的搜索几率</li>
+  <li>建议使用外链css和js脚本，从而达到结构与行为、结构与表现的分离，提高页面的渲染速度，能更快地显示页面的内容</li>
+  <li>样式与标签的分离，更合理的语义化标签，使内容能被更多的用户所访问、内容能被更广泛的设备所访问、更少的代码和组件，从而降低维护成本、改版更方便</li>
+  <li>遵循w3c制定的web标准，能够使用户浏览者更方便的阅读，使网页开发者之间更好的交流</li>
+</ol>
+
+<h3 id="xhtmlhtml">(四) XHTML和HTML</h3>
+
+<ol>
+  <li>
+    <p>定义:</p>
+
+    <ul>
+      <li>HTML是一种基于标准通用标记语言</li>
+      <li>XHTML是一个基于可扩展标记语言</li>
+    </ul>
+  </li>
+  <li>
+    <p>区别:</p>
+
+    <ul>
+      <li>XHTML 可以自定义元素</li>
+      <li>XHTML 元素必须被正确地嵌套</li>
+      <li>XHTML 元素必须被关闭</li>
+      <li>XHTML 标签名必须用小写字母</li>
+      <li>XHTML 文档必须拥有根元素</li>
+    </ul>
+  </li>
+</ol>
+
+<h3 id="divsectionarticle">(五) Div,Section,Article</h3>
+
+<ol>
+  <li>
+    <p>共同点:</p>
+
+    <ul>
+      <li>都只是针对一个块内容做样式化</li>
+    </ul>
+  </li>
+  <li>
+    <p>区别:</p>
+
+    <ul>
+      <li>Section: 
+作为语义化标签,应用的典型场景有文章的章节、标签对话框中的标签页、或者论文中有编号的部分。一般来说，当元素内容明确地出现在文档大纲中时，section 就是适用的;</li>
+      <li>Article: 
+无论从结构上还是内容上来说，article本身就是独立的、完整的。有个最简单的判断方法是看这段内容脱离了所在的语境，是否还是完整的、独立的，如果是，则应该用article标签</li>
+      <li><strong>(重点)</strong> Div Section Article 
+语义是从无到有，逐渐增强的。div无任何语义，仅仅用作样式化或者脚本化，对于一段主题性的内容，则就适用section，而假如这段内容可以脱离上下文，作为完整的独立存在的一段内容，则就适用 article</li>
+      <li>原则上来说，能使用 article 的时候，也是可以使用 section 的，但是实际上，假如使用 article 更合适，那么就不要使用 section</li>
+    </ul>
+  </li>
+</ol>
