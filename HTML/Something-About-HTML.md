@@ -4,7 +4,7 @@ category: Andraw-lin
 title: Something About HTML
 summary: Something About HTML
 ---
-## Something About HTML(To Be Continue)
+## **Something About HTML(To Be Continue)**
 
 - [(一) Doctype](#doctype)<br/>
 - [(二) SVG和Canvas](#svgcanvas)<br/>
