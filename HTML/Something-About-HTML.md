@@ -12,6 +12,8 @@ summary: Something About HTML
 - [(四) XHTML和HTML](#四-xhtml和html)<br/>
 - [(五) Div,Section,Article](#五-divsectionarticle)<br/>
 - [(六) 块级标签，行内标签](#六-块级标签行内标签)<br/>
+- [(七) Img标签里的title与alt区别](#七-img标签里的title与alt区别)
+- [(八) 网站性能优化](#八-网站性能优化)
 
 ### (一) Doctype
 
@@ -42,7 +44,7 @@ summary: Something About HTML
 
 
             
- 1. 区别:
+ 2. 区别:
  
     - SVG 是一种使用 XML 描述 2D 图形的语言
     - Canvas 通过 JavaScript 来绘制 2D 图形
@@ -50,7 +52,7 @@ summary: Something About HTML
     - Canvas 是逐像素进行渲染的。在 canvas 中，一旦图形被绘制完成，它就不会继续得到浏览器的关注。如果其位置发生变化，那么整个场景也需要重新绘制，包括任何或许已被图形覆盖的对象    
     
 
- 2. 比较:
+ 3. 比较:
  
     - SVG:
       + 不依赖分辨率
@@ -66,7 +68,6 @@ summary: Something About HTML
       + 弱的文本渲染能力
       + 能够以 .png 或 .jpg 格式保存结果图像
       + 最适合图像密集型的游戏，其中的许多对象会被频繁重绘
-      
       
       
       
@@ -115,3 +116,41 @@ summary: Something About HTML
   1. 块级标签: div, ul, li, ol, table, th, tbody, tfoot, tr, pre, fieldset, form, h1-6, p等
 
   2. 行内标签: a, abbr, b, br, code, em, img, input, label, select, textarea, strong等
+
+
+### (七) Img标签里的title与alt区别
+
+  1. Title: 
+     title属性为设置该属性的元素提供建议性的信息,大部分的可视化浏览器在鼠标悬浮在特定元素上时显示title文字为提示信息;
+  2. Alt: 
+     alt属性是为不能显示图像、窗体或applets的用户代理，用来指定替换文字。简单的说alt主要是用在图片无法显示时候的代替文字，比如你的logo图片无法显示的时候就会用alt的文字代替;
+  3. 简单再总结一下，img标签的alt属性是在图片因浏览器兼容、加载失败或地址出错等原因而不显示时为浏览用户所做的代替语言，其性质为该图片的代替;而img标签的title属性，是表达该图片的一些额外信息，其性质为一种备注或者注释，鼠标过去时显示该段文字
+
+
+### (八) 网站性能优化
+
+  1. 内容方面:
+
+     + 减少HTTP请求：合并文件、CSS精灵、inline Image
+     + 减少DOM元素数量(联系到伪元素:before与:after)
+     + 避免重定向(多余的中间访问)
+     + 使Ajax可缓存
+     + 将资源放到不同的域下：浏览器同时从一个域下载资源的数目有限，增加域可以提高并行下载量
+
+  2. CSS方面:
+
+     + 将样式表放到页面顶部
+     + 不使用@import
+     + 最好引用以min.css为后缀的css文件
+
+  3. Javascript方面:
+
+     + 将脚本放到页面底部
+     + 将javascript和css从外部引入
+     + 减少DOM操作
+     + 合理设计事件监听器
+
+  4. Cookie方面:
+
+     + 减小cookie大小
+     + 引入资源的域名不要包含cookie
