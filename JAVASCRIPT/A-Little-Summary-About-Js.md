@@ -110,19 +110,23 @@ summary: A little Summary In << Professional JavaScript for Web Developers >>
        ```
        复制前的变量对象:
 
-       |  |   |   |
+
+       |  |   |   | 
        |--|:--:|--:|
        |  |   |   |
        |  |   |   | 
        | num1 | 5(Number类型) |  |
 
+
        复制后的变量对象:
+
 
        |  |  |  |
        |--|:--:|--:|
        |  |   |   |
        | num2 | 5(Number类型) |   |
        | num1 | 5(Number类型) |   |
+
 
        num1和num2是两个完全独立的,这两个变量参与任意操作没有影响;
 
