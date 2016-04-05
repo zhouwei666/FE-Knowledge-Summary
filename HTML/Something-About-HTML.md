@@ -6,11 +6,12 @@ summary: Something About HTML
 ---
 ## **Something About HTML(To Be Continue)**
 
-- [(一) Doctype](#doctype)<br/>
-- [(二) SVG和Canvas](#svgcanvas)<br/>
-- [(三) 对WEB标准的理解，以及对W3C组织的认识](#webw3c)<br/>
-- [(四) XHTML和HTML](xhtmlhtml)<br/>
-
+- [(一) Doctype](#一-doctype)<br/>
+- [(二) SVG和Canvas](#二-svg和canvas)<br/>
+- [(三) 对WEB标准的理解，以及对W3C组织的认识](#三-对web标准的理解以及对w3c组织的认识)<br/>
+- [(四) XHTML和HTML](#四-xhtml和html)<br/>
+- [(五) Div,Section,Article](#五-div,section,article)<br/>
+- [(六) 块级标签，行内标签](#六-块级标签，行内标签)<br/>
 
 ### (一) Doctype
 
@@ -107,3 +108,10 @@ summary: Something About HTML
     - **(重点)** Div Section Article 
       语义是从无到有，逐渐增强的。div无任何语义，仅仅用作样式化或者脚本化，对于一段主题性的内容，则就适用section，而假如这段内容可以脱离上下文，作为完整的独立存在的一段内容，则就适用 article
     - 原则上来说，能使用 article 的时候，也是可以使用 section 的，但是实际上，假如使用 article 更合适，那么就不要使用 section
+
+
+### (六) 块级标签，行内标签
+
+  1. 块级标签: div, ul, li, ol, table, th, tbody, tfoot, tr, pre, fieldset, form, h1-6, p等
+
+  2. 行内标签: a, abbr, b, br, code, em, img, input, label, select, textarea, strong等
