@@ -10,8 +10,8 @@ summary: Something About HTML
 - [(二) SVG和Canvas](#二-svg和canvas)<br/>
 - [(三) 对WEB标准的理解，以及对W3C组织的认识](#三-对web标准的理解以及对w3c组织的认识)<br/>
 - [(四) XHTML和HTML](#四-xhtml和html)<br/>
-- [(五) Div,Section,Article](#五-div,section,article)<br/>
-- [(六) 块级标签，行内标签](#六-块级标签，行内标签)<br/>
+- [(五) Div,Section,Article](#五-divsectionarticle)<br/>
+- [(六) 块级标签，行内标签](#六-块级标签行内标签)<br/>
 
 ### (一) Doctype
 
