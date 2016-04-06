@@ -6,17 +6,17 @@ date: 2016-04-06
 summary: Something About CSS
 ---
 
-## Something About CSS
+## **Something About CSS**
 
-- [(一) CSS选择器](#一-CSS选择器)
-- [(二) CSS Sprites](#二-csssprites)
-- [(三) display:none与visibility:none](#三-display:none与visibility:none)
+- [(一) CSS选择器](#一-css选择器)
+- [(二) CSS Sprites](#二-css-sprites)
+- [(三) display:none与visibility:none](#三-displaynone与visibilitynone)
 - [(四) HTML导入CSS方式](#四-html导入css方式)
-- [(五) link与@import的区别](#五-link与@import的区别)
+- [(五) link与@import的区别](#五-link与import的区别)
 - [(六) CSS中具有继承性的属性](#六-css中具有继承性的属性)
 - [(七) FOUC](#七-fouc)
 - [(八) 如何居中元素](#八-如何居中元素)
-- [(九) 清除浮动(实现BFC)](#九-清除浮动(实现BFC))
+- [(九) 清除浮动(实现BFC)](#九-清除浮动实现bfc)
 
 ### (一) CSS选择器
 
