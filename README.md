@@ -11,6 +11,7 @@
 ## CSS
 
  [1. Some CSS Summary In << CSS The Definitive Guide >>](https://github.com/Andraw-lin/FE-Knowledge-Summary/blob/master/CSS/Little-Knowledge -Point-About-CSS.md)
+ [2. Something About CSS](https://github.com/Andraw-lin/FE-Knowledge-Summary/blob/master/CSS/Something-About-CSS.md)
 
 
 ## JS
