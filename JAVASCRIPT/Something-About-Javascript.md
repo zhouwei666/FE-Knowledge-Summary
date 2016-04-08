@@ -8,11 +8,11 @@ summary: Something About Javascript
 
 ## Something About Javascript
 
-- [(一) callee, caller, call(), apply()区别和认识](#一-calleecallercallapply区别和认识)
+- [(一) callee, caller, call(), apply()区别和认识](#一-callee-caller-call-apply区别和认识)
 - [(二) XMLHttpRequest通用属性方法以及使用](#二-xmlhttprequest通用属性方法以及使用)
-- [(三) sessionStorage,localStorage,cookie区别](#三-sessionStoragelocalStoragecookie区别)
-- [(四) cookie与session区别](#cookie与session区别)
-- [(五) Web storage和cookie区别](#五-webstorage和cookie区别)
+- [(三) sessionStorage,localStorage,cookie区别](#三-sessionstoragelocalstoragecookie区别)
+- [(四) cookie与session区别](#四-cookie与session区别)
+- [(五) Web storage和cookie区别](#五-web-storage和cookie区别)
 - [(六) 闭包的理解](#六-闭包的理解)
 - [(七) JS中定义函数的方法](#七-js中定义函数的方法)
 - [(八) JS定义对象的方法](#八-js定义对象的方法)

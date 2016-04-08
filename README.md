@@ -18,3 +18,5 @@
 ## JS
 
  - [1. A little Summary In << Professional JavaScript for Web Developers >>](https://github.com/Andraw-lin/FE-Knowledge-Summary/blob/master/JAVASCRIPT/A-Little-Summary-About-Js.md)
+
+ - [2. Something About Javascript](https://github.com/Andraw-lin/FE-Knowledge-Summary/blob/master/JAVASCRIPT/Something-About-Javascript.md)

@@ -1,0 +1,394 @@
+<h2 id="something-about-javascript">Something About Javascript</h2>
+
+<ul>
+  <li><a href="#一-calleecallercallapply区别和认识">(一) callee, caller, call(), apply()区别和认识</a></li>
+  <li><a href="#二-xmlhttprequest通用属性方法以及使用">(二) XMLHttpRequest通用属性方法以及使用</a></li>
+  <li><a href="#三-sessionStoragelocalStoragecookie区别">(三) sessionStorage,localStorage,cookie区别</a></li>
+  <li><a href="#cookie与session区别">(四) cookie与session区别</a></li>
+  <li><a href="#五-webstorage和cookie区别">(五) Web storage和cookie区别</a></li>
+  <li><a href="#六-闭包的理解">(六) 闭包的理解</a></li>
+  <li><a href="#七-js中定义函数的方法">(七) JS中定义函数的方法</a></li>
+  <li><a href="#八-js定义对象的方法">(八) JS定义对象的方法</a></li>
+  <li><a href="#九-javascript中基本数据类型">(九) javascript中基本数据类型</a></li>
+</ul>
+
+<h3 id="callee-caller-call-apply">(一) callee, caller, call(), apply()区别和认识</h3>
+
+<ol>
+  <li>
+    <p>函数内部属性: callee, caller</p>
+
+    <ul>
+      <li>
+        <p>callee</p>
+
+        <ul>
+          <li>
+            <p>定义:</p>
+
+            <p>每个函数都有arguments对象,用于保存函数的参数,该对象带有callee属性,该属性是一个指针,指向拥有这个arguments对象的函数(即指向正被执行的Function 对象)</p>
+          </li>
+          <li>
+            <p>举例:</p>
+
+            <div class="highlighter-rouge"><pre class="highlight"><code>    <span class="kd">function</span> <span class="nx">add</span><span class="p">(</span><span class="nx">num</span><span class="p">){</span>
+        <span class="k">if</span><span class="p">(</span><span class="nx">num</span><span class="o">&lt;=</span><span class="mi">1</span><span class="p">){</span>
+            <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+            <span class="k">return</span> <span class="nx">num</span> <span class="o">+</span> <span class="nx">arguments</span><span class="p">.</span><span class="nx">callee</span><span class="p">(</span><span class="nx">num</span><span class="o">-</span><span class="mi">1</span><span class="p">);</span>   <span class="c1">//callee指向当前被执行的函数对象add</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+</code></pre>
+            </div>
+            <p>callee属性最适合用于递归,当add函数名被修改的时候,函数内部递归部分不需要修改,因为arguments.callee指向的就是当前函数对象</p>
+          </li>
+          <li>
+            <p>需要特别的注意的是: callee有一个length属性,arguments.length是实参长度,arguments.callee.length是形参长度,举例:</p>
+          </li>
+        </ul>
+
+        <div class="highlighter-rouge"><pre class="highlight"><code>  <span class="kd">function</span> <span class="nx">add</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">){</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">arguments</span><span class="p">.</span><span class="nx">length</span><span class="p">);</span>          <span class="c1">//输出3</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">arguments</span><span class="p">.</span><span class="nx">callee</span><span class="p">.</span><span class="nx">length</span><span class="p">);</span>   <span class="c1">//输出2</span>
+  <span class="p">}</span>
+  <span class="nx">add</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">);</span>
+</code></pre>
+        </div>
+      </li>
+      <li>
+        <p>caller</p>
+
+        <ul>
+          <li>
+            <p>定义:</p>
+
+            <p>caller属性保存着调用当前函数的函数的引用(即指向调用当前函数的对象), 如果是在全局作用域中调用当前函数,它的值为null</p>
+          </li>
+          <li>
+            <p>举例:</p>
+
+            <div class="highlighter-rouge"><pre class="highlight"><code>    <span class="kd">function</span> <span class="nx">outer</span><span class="p">(){</span>
+        <span class="nx">inner</span><span class="p">();</span>
+    <span class="p">}</span>
+    <span class="kd">function</span> <span class="nx">inner</span><span class="p">(){</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">inner</span><span class="p">.</span><span class="nx">caller</span><span class="p">);</span>      <span class="c1">//输出outer(因为outer调用当前inner函数)</span>
+    <span class="p">}</span>
+    <span class="nx">outer</span><span class="p">();</span>
+</code></pre>
+            </div>
+
+            <p>如果是全局调用当前函数:</p>
+
+            <div class="highlighter-rouge"><pre class="highlight"><code>    <span class="kd">function</span> <span class="nx">add</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">){</span>
+        <span class="k">return</span> <span class="nx">a</span> <span class="o">+</span> <span class="nx">b</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">add</span><span class="p">.</span><span class="nx">caller</span><span class="p">);</span>        <span class="c1">//输出null(因为全局调用add函数)</span>
+</code></pre>
+            </div>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>方法: call(), apply()</p>
+
+    <ul>
+      <li>
+        <p>call()方法</p>
+
+        <ul>
+          <li>
+            <p>定义:</p>
+
+            <p>表示调用一个对象的一个方法,以另一个对象替换当前对象,说明白一点其实就是更改对象的内部指针,即改变对象的this指向的内容</p>
+          </li>
+          <li>
+            <p>格式:</p>
+
+            <div class="highlighter-rouge"><pre class="highlight"><code>    <span class="nx">call</span><span class="p">([</span><span class="nx">Obj</span><span class="p">[,</span><span class="nx">arg1</span><span class="p">[,</span> <span class="nx">arg2</span><span class="p">[,</span> <span class="p">[,.</span><span class="nx">argN</span><span class="p">]]]]])</span>
+</code></pre>
+            </div>
+            <p>obj: 可选项,将被用作当前对象
+arg1, arg2,…, argN: 可选项,将被传递方法参数序列
+不带参数时,默认就是window对象作为参数</p>
+          </li>
+          <li>
+            <p>举例:</p>
+
+            <p>只带一个参数或者不带参数时</p>
+
+            <div class="highlighter-rouge"><pre class="highlight"><code>    <span class="o">&lt;</span><span class="nx">input</span> <span class="nx">type</span><span class="o">=</span><span class="s2">"text"</span> <span class="nx">id</span><span class="o">=</span><span class="s2">"myText"</span> <span class="nx">value</span><span class="o">=</span><span class="s2">"input text"</span><span class="o">&gt;</span>
+    <span class="kd">function</span> <span class="nx">Obj</span><span class="p">(){</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">value</span><span class="o">=</span><span class="s2">"对象!"</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="kd">var</span> <span class="nx">value</span><span class="o">=</span><span class="s2">"global变量"</span><span class="p">;</span>
+    <span class="kd">function</span> <span class="nx">Fun1</span><span class="p">(){</span>
+        <span class="nx">alert</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">value</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="nb">window</span><span class="p">.</span><span class="nx">Fun1</span><span class="p">();</span>          <span class="c1">//输出global变量</span>
+    <span class="nx">Fun1</span><span class="p">.</span><span class="nx">call</span><span class="p">();</span>            <span class="c1">//输出global变量</span>
+    <span class="nx">Fun1</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nb">window</span><span class="p">);</span>      <span class="c1">//输出global变量</span>
+    <span class="nx">Fun1</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">'myText'</span><span class="p">));</span>   <span class="c1">//输出input text</span>
+    <span class="nx">Fun1</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">new</span> <span class="nx">Obj</span><span class="p">());</span>   <span class="c1">//输出对象!</span>
+</code></pre>
+            </div>
+
+            <p>带两个参数时:</p>
+
+            <div class="highlighter-rouge"><pre class="highlight"><code>    <span class="kd">var</span> <span class="nx">func</span><span class="o">=</span><span class="k">new</span> <span class="kd">function</span><span class="p">(){</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">a</span><span class="o">=</span><span class="s2">"func"</span>
+    <span class="p">}</span>
+    <span class="kd">var</span> <span class="nx">myfunc</span><span class="o">=</span><span class="kd">function</span><span class="p">(</span><span class="nx">x</span><span class="p">){</span>
+        <span class="kd">var</span> <span class="nx">a</span><span class="o">=</span><span class="s2">"myfunc"</span><span class="p">;</span>
+        <span class="nx">alert</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">a</span><span class="p">);</span>
+        <span class="nx">alert</span><span class="p">(</span><span class="nx">x</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="nx">myfunc</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nx">func</span><span class="p">,</span><span class="s2">"var"</span><span class="p">);</span>        <span class="c1">//分别弹出func和var</span>
+</code></pre>
+            </div>
+            <p>var作为myfunction的参数</p>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <p>apply()方法</p>
+
+        <ul>
+          <li>
+            <p>对于apply和call两者在作用上是相同的，但两者在参数上有区别的,对于第一个参数意义都一样，但对第二个参数不同, apply传入的是一个参数数组，也就是将多个参数组合成为一个数组传入，而call则一个一个参数传入（从第二个参数开始）</p>
+          </li>
+          <li>
+            <p>使用apply的好处是可以直接将当前函数的arguments对象作为apply的第二个参数传入</p>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ol>
+
+<h3 id="xmlhttprequest">(二) XMLHttpRequest通用属性方法以及使用</h3>
+
+<ol>
+  <li>
+    <p>通用属性方法:</p>
+
+    <ul>
+      <li>
+        <p>open(method, url, asynchronous):</p>
+
+        <p>初始化准备发送到服务器上的请求。method是HTTP方法，不区分大小写；url是请求发送的相对或绝对URL；asynchronous表示请求是否异步</p>
+      </li>
+      <li>
+        <p>send(body):</p>
+
+        <p>对服务器请求进行初始化。body为即要作为请求主体发送的数据，如果不需要通过请求主体发送数据，则必须传入null</p>
+      </li>
+      <li>
+        <p>readyState：</p>
+
+        <p>表示请求状态的整数，可以取值：</p>
+
+        <ul>
+          <li>
+            <p>UNSENT（0）：为初始化，对象已创建</p>
+          </li>
+          <li>
+            <p>OPENED（1）：启动，已经调用open()方法，但尚未调用send()方法</p>
+          </li>
+          <li>
+            <p>HEADERS_RECEIVED(2)：发送，已经调用send()方法，但尚未接收到响应</p>
+          </li>
+          <li>
+            <p>LOADING(3)：接收，已经接收到部分响应数据</p>
+          </li>
+          <li>
+            <p>DONE(4)：完成，已经接收到全部响应数据而且已经可以在客户端使用了</p>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <p>onreadystatechange事件：</p>
+
+        <p>readyState改变时调用的函数(事件)</p>
+      </li>
+      <li>
+        <p>status：</p>
+
+        <p>服务器返回的HTTP状态码：</p>
+
+        <ul>
+          <li>
+            <p>1xx：请求已发出，在处理中；</p>
+          </li>
+          <li>
+            <p>2xx：已处理成功；</p>
+          </li>
+          <li>
+            <p>3xx：重定向，需要更深层次处理；</p>
+          </li>
+          <li>
+            <p>4xx：客户端错误，语法错误等(400：语法错误；401：未经授权；403：服务端收到请求，但拒绝为它服务)；</p>
+          </li>
+          <li>
+            <p>5xx：服务的错误(500：服务端发生不可逾期错误；503：现在还不能处理，过一段时间才恢复正常)；</p>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <p>statusText:</p>
+
+        <p>服务器返回的HTTP状态信息</p>
+      </li>
+      <li>
+        <p>responseXML:</p>
+
+        <p>Document对象，表示服务器的响应解析成的XML文档</p>
+      </li>
+      <li>
+        <p>abort():</p>
+
+        <p>取消异步HTTP请求</p>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>使用:</p>
+
+    <div class="highlighter-rouge"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">xhr</span> <span class="o">=</span> <span class="nx">createXHR</span><span class="p">();</span>
+<span class="nx">xhr</span><span class="p">.</span><span class="nx">onreadystatechange</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span>
+    <span class="k">if</span><span class="p">(</span><span class="nx">xhr</span><span class="p">.</span><span class="nx">readyState</span> <span class="o">==</span> <span class="mi">4</span><span class="p">){</span>        <span class="c1">//查看请求状态</span>
+        <span class="k">if</span><span class="p">(</span><span class="nx">xhr</span><span class="p">.</span><span class="nx">status</span> <span class="o">&gt;=</span><span class="mi">200</span> <span class="o">&amp;&amp;</span> <span class="nx">xhr</span> <span class="o">&lt;</span> <span class="mi">300</span> <span class="o">||</span> <span class="nx">xhr</span><span class="p">.</span><span class="nx">status</span> <span class="o">==</span> <span class="mi">304</span><span class="p">){</span>     <span class="c1">//查看返回HTTP状态码</span>
+            <span class="nx">alert</span><span class="p">(</span><span class="nx">xhr</span><span class="p">.</span><span class="nx">responseText</span><span class="p">);</span>
+        <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+            <span class="nx">alert</span><span class="p">(</span><span class="s2">"请求失败:"</span><span class="o">+</span> <span class="nx">xhr</span><span class="p">.</span><span class="nx">status</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+<span class="nx">xhr</span><span class="p">.</span><span class="nx">open</span><span class="p">(</span><span class="s2">"get"</span><span class="p">,</span><span class="s2">"test.php"</span><span class="p">,</span><span class="kc">true</span><span class="p">);</span>
+<span class="nx">xhr</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="kc">null</span><span class="p">);</span>
+</code></pre>
+    </div>
+  </li>
+</ol>
+
+<h3 id="sessionstoragelocalstoragecookie">(三) sessionStorage,localStorage,cookie区别</h3>
+
+<p>同源成立条件：协议相同、域名相同、端口相同；</p>
+
+<ol>
+  <li>都会在浏览器端保存，有大小限制;</li>
+  <li>cookie会在请求时发送到服务器，作为会话标识，服务器可修改cookie；web storage不会发送到服务器;</li>
+  <li>有效期：cookie在设置的有效期内有效，默认为浏览器关闭；sessionStorage在窗口关闭前有效，localStorage长期有效，直到用户删除;</li>
+  <li>sessionStorage不能共享，localStorage在同源文档之间共享，cookie在同源且符合path规则的文档之间共享</li>
+  <li>localStorage的修改会促发其他文档窗口的update事件;</li>
+  <li>cookie有secure属性要求HTTPS传输;</li>
+  <li>浏览器不能保存超过300个cookie，单个服务器不能超过20个，每个cookie不能超过4k。web storage大小支持能达到5M;</li>
+</ol>
+
+<h3 id="cookiesession">(四) cookie与session区别</h3>
+
+<ol>
+  <li>cookie数据存放在客户的浏览器上，session数据放在服务器上；</li>
+  <li>cookie不是很安全，别人可以分析存放在本地的COOKIE并进行COOKIE欺骗考虑到安全应当使用session；</li>
+  <li>session会在一定时间内保存在服务器上。当访问增多，会比较占用你服务器的性能考虑到减轻服务器性能方面，应当使用COOKIE；</li>
+  <li>单个cookie保存的数据不能超过4K，很多浏览器都限制一个站点最多保存20个cookie；</li>
+  <li>所以个人建议：
+将登陆信息等重要信息存放为SESSION
+其他信息如果需要保留，可以放在COOKIE中</li>
+</ol>
+
+<h3 id="web-storagecookie">(五) Web storage和cookie区别</h3>
+
+<ol>
+  <li>首先，Web Storage的概念和cookie相似，区别是它是为了更大容量存储设计的；</li>
+  <li>Cookie的大小是受限的，并且每次你请求一个新的页面的时候Cookie都会被发送过去，这样无形中浪费了带宽，另外cookie还需要指定作用域，不可以跨域调用；</li>
+  <li>Web Storage拥有setItem,getItem,removeItem,clear等方法，不像cookie需要前端开发者自己封装setCookie，getCookie；</li>
+  <li>cookie也是不可以或缺的：cookie的作用是与服务器进行交互，作为HTTP规范的一部分而存在 ，而Web Storage仅仅是为了在本地“存储”数据而生；</li>
+  <li>localStorage和sessionStorage都具有相同的操作方法，例如setItem、getItem和removeItem等；</li>
+</ol>
+
+<h3 id="section">(六) 闭包的理解</h3>
+
+<ul>
+  <li><a href="https://github.com/Andraw-lin/Andraw-lin.github.io/blob/master/_posts/2016-04-01-Talking-About-JS-Closures-And-This-Keywords.md">浅谈JS闭包和this</a></li>
+</ul>
+
+<h3 id="js">(七) JS中定义函数的方法</h3>
+
+<ol>
+  <li>
+    <p>Function操作符：</p>
+
+    <div class="highlighter-rouge"><pre class="highlight"><code>    <span class="kd">function</span> <span class="nx">func</span><span class="p">(){}</span>
+</code></pre>
+    </div>
+  </li>
+  <li>
+    <p>函数表达式：</p>
+
+    <div class="highlighter-rouge"><pre class="highlight"><code>    <span class="kd">var</span> <span class="nx">func</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){}</span>
+</code></pre>
+    </div>
+  </li>
+  <li>
+    <p>构造函数(可以接收任意数量参数，但最后一个参数被看成是函数体)：</p>
+
+    <div class="highlighter-rouge"><pre class="highlight"><code>    <span class="kd">var</span> <span class="nx">func</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Function</span><span class="p">(</span><span class="s2">"num1"</span><span class="p">,</span><span class="s2">"num2"</span><span class="p">,</span><span class="s2">"return num1+num2"</span><span class="p">);</span>  <span class="c1">//不推荐使用这种方法定义函数</span>
+</code></pre>
+    </div>
+  </li>
+  <li>
+    <p>ES6:arrow function</p>
+  </li>
+</ol>
+
+<h3 id="js-1">(八) JS定义对象的方法</h3>
+
+<ol>
+  <li>
+    <p>对象字面量：</p>
+
+    <div class="highlighter-rouge"><pre class="highlight"><code>    <span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{};</span>
+</code></pre>
+    </div>
+  </li>
+  <li>
+    <p>构造函数：</p>
+
+    <div class="highlighter-rouge"><pre class="highlight"><code>    <span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Object</span><span class="p">();</span>
+</code></pre>
+    </div>
+  </li>
+  <li>
+    <p>Object.create():</p>
+
+    <div class="highlighter-rouge"><pre class="highlight"><code>    <span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="nb">Object</span><span class="p">.</span><span class="nx">prototype</span><span class="p">);</span>
+</code></pre>
+    </div>
+  </li>
+</ol>
+
+<h3 id="javascript">(九) javascript中基本数据类型</h3>
+
+<ol>
+  <li>
+    <p>6 中基本数据类型:</p>
+
+    <ul>
+      <li>undefined</li>
+      <li>null</li>
+      <li>string</li>
+      <li>boolean</li>
+      <li>number</li>
+      <li>symbol(ES6)</li>
+    </ul>
+  </li>
+  <li>
+    <p>1 中引用类型:</p>
+
+    <ul>
+      <li>Object</li>
+    </ul>
+  </li>
+</ol>
