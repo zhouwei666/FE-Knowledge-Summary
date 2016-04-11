@@ -17,6 +17,8 @@ summary: Something About CSS
 - [(七) FOUC](#七-fouc)
 - [(八) 如何居中元素](#八-如何居中元素)
 - [(九) 清除浮动(实现BFC)](#九-清除浮动实现bfc)
+- [(十) 描述下reset CSS文件的作用和使用它的好处](#十-描述下reset-css文件的作用和使用它的好处)
+- [(十一) 浮动的工作原理](#十一-浮动的工作原理)
 
 ### (一) CSS选择器
 
@@ -158,6 +160,17 @@ summary: Something About CSS
      + ::before和:before
     
        选择元素虚拟子元素(元素的第一个子元素),CSS3中::表示伪元素,兼容性:before为IE8+,::after为IE9+
+
+  6. CSS选择器的效率从高到低是:
+
+     + id选择器
+     + class选择器
+     + 标签选择器
+     + 直接兄弟选择器(h1+span)
+     + 子选择器(ul>li)
+     + 后代选择器(ul a)
+     + 属性选择器
+     + 伪类,伪选择器
   
       
     
@@ -242,6 +255,10 @@ summary: Something About CSS
  
     在head标签里面没有任何的link标签或者script标签,这时候在style标签面只用了@import导入外部样式,这时候,IE会先加载整个HTML文档的DOM,然后再去导入外部的CSS文件,在加载那段时间里页面的内容是没有任何样式的
 
+ 3. 避免方法:
+
+    使用LINK标签将样式表放在文档HEAD中
+
 
 ### (八) 如何居中元素
 
@@ -251,3 +268,22 @@ summary: Something About CSS
 ### (九) 清除浮动(实现BFC)
 
  - [清除浮动方法](https://github.com/Andraw-lin/Andraw-lin.github.io/blob/master/_posts/2016-03-29-Talking-About-The-Method-Of-Clearing-Floating-In-CSS.md)
+
+
+### (十) 描述下reset CSS文件的作用和使用它的好处
+
+ 1. 定义: 
+ 
+    每个浏览器对于不同元素的css样式的默认值是不一样的，使用reset可以统一css样式;
+
+ 2. 使用好处:
+ 
+    使用CSS reset可以很好地解决浏览器在解析颜色样式上的差异问题,减少了开发人员工作;
+
+ 3. 使用坏处:
+   
+    CSS reset 通常会增加浏览器进行样式计算的成本（即有一定的性能负担），因为它引入了许多的针对元素的全局规则，网页中几乎所有元素都会匹配一条乃至几条的reset规则，且往往规则中的属性设定其实会被更specific的规则所覆盖 
+
+### (十一) 浮动的工作原理
+
+ - 如果对一个元素设置浮动，它就会脱离文本流直到碰到框的最左或者最右，普通流的其他元素会取代它原本的位置
