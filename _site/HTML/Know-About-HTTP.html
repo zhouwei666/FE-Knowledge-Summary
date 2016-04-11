@@ -1,0 +1,248 @@
+<h2 id="know-about-http"><strong>Know About HTTP</strong></h2>
+
+<ul>
+  <li><a href="#一-http协议的定义">(一) HTTP协议的定义</a></li>
+  <li><a href="#二-http协议的主要特点">(二) HTTP协议的主要特点</a></li>
+  <li><a href="#三-http协议的版本">(三) HTTP协议的版本</a></li>
+  <li><a href="#四-HTTP10版本和HTTP11版本区别">(四) HTTP1.0版本和HTTP1.1版本区别</a></li>
+  <li><a href="#五-http请求">(五) HTTP请求</a></li>
+  <li><a href="#六-http响应">(六) HTTP响应</a></li>
+  <li><a href="#七-http状态码">(七) HTTP状态码</a></li>
+</ul>
+
+<h3 id="http">(一) HTTP协议的定义</h3>
+
+<ul>
+  <li>HTTP是hypertext transfer protocol（超文本传输协议）的简写，它是TCP/IP协议的一个应用层协议，用于定义WEB浏览器与WEB服务器之间交换数据的过程。客户端连上web服务器后，若想获得web服务器中的某个web资源，需遵守一定的通讯格式，HTTP协议用于定义客户端与web服务器通迅的格式</li>
+</ul>
+
+<h3 id="http-1">(二) HTTP协议的主要特点</h3>
+
+<ul>
+  <li>支持C/S(客户/服务器)模式;</li>
+  <li>
+    <p>简单快速:</p>
+
+    <p>客户向服务器请求服务时，只需传送请求方法和路径;</p>
+  </li>
+  <li>
+    <p>灵活:</p>
+
+    <p>HTTP允许传输任意类型的数据对象(传输的类型由Content-Type加以标记);</p>
+  </li>
+  <li>
+    <p>无连接:</p>
+
+    <p>无连接的含义是限制每次连接只处理一个请求 , 服务器处理完客户的请求，并收到客户的应答后，即断开连接。采用这种方式可以节省传输时间;</p>
+  </li>
+  <li>
+    <p>无状态:</p>
+
+    <p>无状态是指HTTP协议对于事务处理没有记忆能力,缺少状态意味着如果后续处理需要前面的信息，则它必须重传，这样可能导致每次连接传送的数据量增大 , 另一方面，在服务器不需要先前信息时它的应答就较快</p>
+  </li>
+</ul>
+
+<h3 id="http-2">(三) HTTP协议的版本</h3>
+
+<ul>
+  <li>
+    <p>HTTP协议的版本有两个:</p>
+
+    <ul>
+      <li>
+        <p>HTTP/1.0</p>
+      </li>
+      <li>
+        <p>HTTP/1.1</p>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="http10http11">(四) HTTP1.0版本和HTTP1.1版本区别</h3>
+
+<ol>
+  <li>在HTTP1.0协议中，客户端与web服务器建立连接后，只能获得一个web资源;</li>
+  <li>在HTTP1.1协议中，允许客户端与web服务器建立连接后，在一个连接上获取多个web资源;</li>
+</ol>
+
+<h3 id="http-3">(五) HTTP请求</h3>
+
+<ol>
+  <li>
+    <p>HTTP请求包括的内容</p>
+
+    <ul>
+      <li>客户端连上服务器后，向服务器请求某个web资源，称之为客户端向服务器发送了一个HTTP请求;</li>
+      <li>一个完整的HTTP请求包括: 一个请求行,若干消息头,以及实体内容;</li>
+      <li>
+        <p>HTTP请求的格式:</p>
+
+        <div class="highlighter-rouge"><pre class="highlight"><code><span class="o">&lt;</span><span class="nx">method</span><span class="o">&gt;&lt;</span><span class="nx">request</span><span class="o">-</span><span class="nx">URL</span><span class="o">&gt;&lt;</span><span class="nx">version</span><span class="o">&gt;</span>    <span class="c1">//起始行</span>
+<span class="o">&lt;</span><span class="nx">headers</span><span class="o">&gt;</span>         <span class="c1">//首部</span>
+<span class="o">&lt;</span><span class="nx">entity</span><span class="o">-</span><span class="nx">body</span><span class="o">&gt;</span>     <span class="c1">//实体内容</span>
+</code></pre>
+        </div>
+      </li>
+      <li>
+        <p>效果图:</p>
+
+        <p><img src="http://7xs89l.com1.z0.glb.clouddn.com/HTTPrequest.png" alt="" /></p>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>HTTP请求行</p>
+
+    <ul>
+      <li>请求行中的请求方式包括POST、GET、HEAD、OPTIONS、DELETE、TRACE、PUT,其中常用的就是GET和POST,默认使用的是GET方式</li>
+    </ul>
+
+    <p><a href="https://github.com/Andraw-lin/Andraw-lin.github.io/blob/master/_posts/2016-04-05-AJAX-Cache-Principle.md">GET和POST区别</a></p>
+  </li>
+  <li>
+    <p>HTTP消息头</p>
+
+    <ul>
+      <li>
+        <p>HTTP请求中常用消息头主要有:</p>
+
+        <ul>
+          <li>
+            <p>accept:
+浏览器通过这个头告诉服务器，它所支持的数据类型;</p>
+          </li>
+          <li>
+            <p>Accept-Charset:
+浏览器通过这个头告诉服务器，它支持哪种字符集;</p>
+          </li>
+          <li>
+            <p>Accept-Encoding：
+浏览器通过这个头告诉服务器，支持的压缩格式;</p>
+          </li>
+          <li>
+            <p>Accept-Language：
+浏览器通过这个头告诉服务器，它的语言环境;</p>
+          </li>
+          <li>
+            <p>Host：
+浏览器通过这个头告诉服务器，想访问哪台主机;</p>
+          </li>
+          <li>
+            <p>If-Modified-Since：
+浏览器通过这个头告诉服务器，缓存数据的时间;</p>
+          </li>
+          <li>
+            <p>Referer：
+浏览器通过这个头告诉服务器，客户机是哪个页面来的防盗链;</p>
+          </li>
+          <li>
+            <p>Connection：
+浏览器通过这个头告诉服务器，请求完后是断开链接还是继续链接;</p>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ol>
+
+<h3 id="http-4">(六) HTTP响应</h3>
+
+<ol>
+  <li>
+    <p>HTTP响应包括的内容</p>
+
+    <ul>
+      <li>一个HTTP响应代表服务器向客户端回送的数据;</li>
+      <li>一个HTTP响应包括有一个状态行、若干消息头、以及实体内容;</li>
+      <li>
+        <p>HTTP响应格式:</p>
+
+        <div class="highlighter-rouge"><pre class="highlight"><code><span class="o">&lt;</span><span class="nx">version</span><span class="o">&gt;&lt;</span><span class="nx">status</span><span class="o">&gt;&lt;</span><span class="nx">respon</span><span class="o">-</span><span class="nx">phare</span><span class="o">&gt;</span>   <span class="c1">//起始行</span>
+<span class="o">&lt;</span><span class="nx">headers</span><span class="o">&gt;</span>         <span class="c1">//首部</span>
+<span class="o">&lt;</span><span class="nx">entity</span><span class="o">-</span><span class="nx">body</span><span class="o">&gt;</span>     <span class="c1">//实体内容</span>
+</code></pre>
+        </div>
+      </li>
+      <li>
+        <p>效果图:</p>
+
+        <p><img src="http://7xs89l.com1.z0.glb.clouddn.com/HTTPresponse.png" alt="" /></p>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>常用的响应头(消息头):</p>
+
+    <ul>
+      <li>
+        <p>Location:
+服务器通过这个头，来告诉浏览器跳到哪里;</p>
+      </li>
+      <li>
+        <p>Server:
+服务器通过这个头，告诉浏览器服务器的型号;</p>
+      </li>
+      <li>
+        <p>Content-Encoding:
+服务器通过这个头，告诉浏览器，数据的压缩格式;</p>
+      </li>
+      <li>
+        <p>Content-Length:
+服务器通过这个头，告诉浏览器回送数据的长度;</p>
+      </li>
+      <li>
+        <p>Content-Language:
+服务器通过这个头，告诉浏览器语言环境;</p>
+      </li>
+      <li>
+        <p>Content-Type:
+服务器通过这个头，告诉浏览器回送数据的类型;</p>
+      </li>
+      <li>
+        <p>Refresh:
+服务器通过这个头，告诉浏览器定时刷新;</p>
+      </li>
+      <li>
+        <p>Content-Disposition:
+服务器通过这个头，告诉浏览器以下载方式打数据;</p>
+      </li>
+      <li>
+        <p>Transfer-Encoding:
+服务器通过这个头，告诉浏览器数据是以分块方式回送的;</p>
+      </li>
+      <li>
+        <p>Expires:
+告知浏览器要不要进行缓存(值为-1时为不要缓存);</p>
+      </li>
+      <li>
+        <p>Cache-Control:
+由服务器端返回，标记该资源可以在浏览器缓存中存活的相对时间，以秒为单位;</p>
+      </li>
+    </ul>
+
+    <p><a href="https://github.com/Andraw-lin/FE-Knowledge-Summary/blob/master/HTML/Something-About-HTML.md#%E4%B9%9D-%E6%B5%8F%E8%A7%88%E5%99%A8%E7%BC%93%E5%AD%98">浏览器缓存</a></p>
+
+    <p><a href="https://github.com/Andraw-lin/FE-Knowledge-Summary/blob/master/JAVASCRIPT/Something-About-Javascript.md">cookie与session</a></p>
+  </li>
+</ol>
+
+<h3 id="http-5">(七) HTTP状态码</h3>
+
+<ol>
+  <li>
+    <p>100~199表示成功接受请求,要求客户端继续提交下一次请求才能完成整个处理过程:</p>
+  </li>
+  <li>
+    <p>200~299表示成功接收请求并已完成整个过程处理:</p>
+  </li>
+  <li>
+    <p>300~399表示为完成请求,客户需进一步细化请求;</p>
+  </li>
+  <li>
+    <p>400~499表示客户端的请求有错误;</p>
+  </li>
+  <li>
+    <p>500~599表示服务端出现错误;</p>
+  </li>
+</ol>

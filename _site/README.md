@@ -6,7 +6,7 @@
 
  - [1. Somthing About HTML](https://github.com/Andraw-lin/FE-Knowledge-Summary/blob/master/HTML/Something-About-HTML.md)
 
-
+ - [2. Know About HTTP](https://github.com/Andraw-lin/FE-Knowledge-Summary/blob/master/HTML/Know-About-HTTP.md)
 
 ## CSS
 
@@ -18,3 +18,5 @@
 ## JS
 
  - [1. A little Summary In << Professional JavaScript for Web Developers >>](https://github.com/Andraw-lin/FE-Knowledge-Summary/blob/master/JAVASCRIPT/A-Little-Summary-About-Js.md)
+
+ - [2. Something About Javascript](https://github.com/Andraw-lin/FE-Knowledge-Summary/blob/master/JAVASCRIPT/Something-About-Javascript.md)
