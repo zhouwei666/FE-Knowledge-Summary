@@ -10,7 +10,7 @@ summary: Know About HTTP
 - [(一) HTTP协议的定义](#一-http协议的定义)
 - [(二) HTTP协议的主要特点](#二-http协议的主要特点)
 - [(三) HTTP协议的版本](#三-http协议的版本)
-- [(四) HTTP1.0版本和HTTP1.1版本区别](#四-HTTP10版本和HTTP11版本区别)
+- [(四) HTTP1.0版本和HTTP1.1版本区别](#四-http10版本和http11版本区别)
 - [(五) HTTP请求](#五-http请求)
 - [(六) HTTP响应](#六-http响应)
 - [(七) HTTP状态码](#七-http状态码)
@@ -75,7 +75,7 @@ summary: Know About HTTP
  2. HTTP请求行
 
     + 请求行中的请求方式包括POST、GET、HEAD、OPTIONS、DELETE、TRACE、PUT,其中常用的就是GET和POST,默认使用的是GET方式
-    
+
     [GET和POST区别](https://github.com/Andraw-lin/Andraw-lin.github.io/blob/master/_posts/2016-04-05-AJAX-Cache-Principle.md)
  
  
