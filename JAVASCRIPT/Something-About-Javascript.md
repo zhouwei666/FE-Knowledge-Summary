@@ -17,6 +17,9 @@ summary: Something About Javascript
 - [(七) JS中定义函数的方法](#七-js中定义函数的方法)
 - [(八) JS定义对象的方法](#八-js定义对象的方法)
 - [(九) javascript中基本数据类型](#九-javascript中基本数据类型)
+- [(十) 如何解决跨域问题](#十-如何解决跨域问题)
+- [(十一) 作用域链的理解](#十一-作用域链的理解)
+- [(十二) 异步加载JS方法](#十二-异步加载JS方法)
 
 ### (一) callee, caller, call(), apply()区别和认识
 
@@ -308,3 +311,99 @@ summary: Something About Javascript
  2. 1 中引用类型:
 
     + Object
+
+### (十) 如何解决跨域问题
+
+ 1. JSONP方法
+
+    - 原理是:
+      动态插入script标签，通过script标签引入一个js文件，这个js文件载入成功后会执行我们在url参数中指定的函数，并且会把我们需要的json数据作为参数传入;
+      
+    - 例子:
+    
+      ```javascript
+      <script type="text/javascript">
+      function dosomething(jsondata){
+        //处理获得的json数据
+      }
+      </script>
+      <script src="http://example.com/data.php?callback=dosomething"></script>
+      ```
+    - CORS和JSONP对比
+    
+      + JSONP只能实现GET请求，而CORS支持所有类型的HTTP请求;
+      + 使用CORS，开发者可以使用普通的XMLHttpRequest发起请求和获得数据，比起JSONP有更好的错误处理;
+      + JSONP主要被老的浏览器支持，它们往往不支持CORS，而绝大多数现代浏览器都已经支持了CORS;
+ 
+ 2. CORS
+
+    对于CORS的支持，主要就是通过设置Access-Control-Allow-Origin来进行的。如果浏览器检测到相应的设置，就可以允许Ajax进行跨域的访问;
+    
+    
+ 3. 通过修改document.domain来跨子域
+
+    - 将子域和主域的document.domain设为同一个主域.前提条件：这两个域名必须属于同一个基础域名!而且所用的协议，端口都要一致，否则无法利用document.domain进行跨域;
+    - 例子:
+      
+      ```javascript
+      <iframe id = "iframe" src="http://example.com/b.html" onload = "test()"></iframe>
+      <script type="text/javascript">
+        document.domain = 'example.com';//设置成主域
+        function test(){
+          alert(document.getElementById('iframe').contentWindow);//contentWindow 可取得子窗口的 window 对象
+        }
+      </script>
+      ```
+   
+ 4. 使用window.name来进行跨域
+
+    + window对象有个name属性，该属性有个特征：即在一个窗口(window)的生命周期内,窗口载入的所有的页面都是共享一个window.name的，每个页面对window.name都有读写的权限，window.name是持久存在一个窗口载入过的所有页面中的;
+    
+ 5. 使用HTML5中新引进的window.postMessage方法来跨域传送数据
+
+    + 还有flash、在服务器上设置代理页面等跨域方式。个人认为window.name的方法既不复杂，也能兼容到几乎所有浏览器，这真是极好的一种跨域方法;
+    
+
+
+
+### (十一) 作用域链的理解
+
+ - 作用域链的作用是保证执行环境里有权访问的变量和函数是有序的，作用域链的变量只能向上访问，变量访问到window对象即被终止，作用域链向下访问变量是不被允许的
+
+
+### (十二) 异步加载JS方法
+
+ 1. <script>标签的async="async"属性
+
+    HTML5中新增的属性,但这种方法不能保证脚本按顺序执行;
+
+
+ 2. <script>标签的defer="defer"属性
+
+    兼容所有浏览器,这种方法可以确保所有设置defer的脚本按顺序执行;
+    
+
+ 3. 动态创建<script>标签
+
+    兼容所有浏览器
+    例子:
+    
+    ```html
+    <!DOCTYPE html>
+    <html>
+        <head>
+            <script type="text/javascript">
+                (function(){
+                        var s = document.createElement('script');
+                        s.type = 'text/javascript';
+                        s.src = "jquery-1.7.2.min.js";
+                        var tmp = document.getElementsByTagName('script')[0];
+                        tmp.parentNode.insertBefore(s, tmp);
+                })();
+            </script>
+        </head>
+        <body>
+                <img src="2.jpg" />
+        </body>
+    </html>
+    ```
