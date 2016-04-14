@@ -373,17 +373,17 @@ summary: Something About Javascript
 
 ### (十二) 异步加载JS方法
 
- 1. <script>标签的async="async"属性
+ 1.  `<script>` 标签的 `async="async"` 属性
 
     HTML5中新增的属性,但这种方法不能保证脚本按顺序执行;
 
 
- 2. <script>标签的defer="defer"属性
+ 2. `<script>` 标签的 `defer="defer"` 属性
 
     兼容所有浏览器,这种方法可以确保所有设置defer的脚本按顺序执行;
     
 
- 3. 动态创建<script>标签
+ 3. 动态创建 `<script>` 标签
 
     兼容所有浏览器
     例子:
