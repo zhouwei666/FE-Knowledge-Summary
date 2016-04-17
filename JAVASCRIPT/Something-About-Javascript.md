@@ -20,6 +20,7 @@ summary: Something About Javascript
 - [(十) 如何解决跨域问题](#十-如何解决跨域问题)
 - [(十一) 作用域链的理解](#十一-作用域链的理解)
 - [(十二) 异步加载JS方法](#十二-异步加载JS方法)
+- [(十三) 创建Ajax过程](#十三-创建ajax过程)
 
 ### (一) callee, caller, call(), apply()区别和认识
 
@@ -406,4 +407,31 @@ summary: Something About Javascript
                 <img src="2.jpg" />
         </body>
     </html>
+    ```
+
+### (十三) 创建Ajax过程
+
+ 1. 过程:
+    - 创建`XMLHttpRequest`对象,也就是创建一个异步调用对象;
+    - 创建一个新的`HTTP`请求,并指定该`HTTP`请求的方法、`URL`及验证信息;
+    - 设置响应`HTTP`请求状态变化的函数;
+    - 发送`HTTP`请求;
+    - 获取异步调用返回的数据;
+    - 使用JavaScript和DOM实现局部刷新;
+
+ 2. 代码:
+
+    ```javascript
+     var xmlHttp = new XMLHttpRequest();
+     xmlHttp.open('GET','demo.php','true');
+     xmlHttp.send();
+     xmlHttp.onreadystatechange = function(){
+        if(xmlHttp.readyState == 4){
+            if(xmlHttp.status>=200 && xmlHttp.status<300 || xmlHttp.status==304){
+                alert(xmlHttp.responseText);
+            }else{
+                alert(xmlHttp.status);
+            }
+        }
+     }
     ```
