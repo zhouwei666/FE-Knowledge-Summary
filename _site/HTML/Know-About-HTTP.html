@@ -4,10 +4,11 @@
   <li><a href="#一-http协议的定义">(一) HTTP协议的定义</a></li>
   <li><a href="#二-http协议的主要特点">(二) HTTP协议的主要特点</a></li>
   <li><a href="#三-http协议的版本">(三) HTTP协议的版本</a></li>
-  <li><a href="#四-HTTP10版本和HTTP11版本区别">(四) HTTP1.0版本和HTTP1.1版本区别</a></li>
+  <li><a href="#四-http10版本和http11版本区别">(四) HTTP1.0版本和HTTP1.1版本区别</a></li>
   <li><a href="#五-http请求">(五) HTTP请求</a></li>
   <li><a href="#六-http响应">(六) HTTP响应</a></li>
   <li><a href="#七-http状态码">(七) HTTP状态码</a></li>
+  <li><a href="#八-http20与http1x对比">(八) HTTP/2.0与HTTP/1.x对比</a></li>
 </ul>
 
 <h3 id="http">(一) HTTP协议的定义</h3>
@@ -245,4 +246,13 @@
   <li>
     <p>500~599表示服务端出现错误;</p>
   </li>
+</ol>
+
+<h3 id="http20http1x">(八) HTTP/2.0与HTTP/1.x对比</h3>
+
+<ol>
+  <li>HTTP/2.0相比HTTP/1.x提升了WEB性能,在HTTP/1.1完全语义兼容的基础下,进一步减少了网络延迟;</li>
+  <li>在HTTP/2.0中,可以实行多路复用,允许同时通过单一的HTTP/2.0连接发起多重的请求-响应消息;</li>
+  <li>HTTP/2.0能够使用专门的HPACK算法为首部进行压缩;</li>
+  <li>在HTTP/2.0基础上,服务端可以对客户端的一个请求发送多个响应;</li>
 </ol>
