@@ -11,6 +11,7 @@ summary: Some-Javascript-Advanced-Techniques
 - [(二) 建立作用域安全的构造函数](#二-建立作用域安全的构造函数)
 - [(三) 惰性载入函数](三-惰性载入函数)
 - [(四) 函数绑定](四-函数绑定)
+- [(五) Javascript防篡改对象](五-javascript防篡改对象)
 
 ### (一) 检测一个json对象是原生对象还是开发者自定义的对象
 
@@ -215,3 +216,71 @@ EventUtil.addHandler(btn, "click", handler.handleClick);
     var btn = document.getElementById("my-btn");
     EventUtil.addHandler(btn, "click", handler.handleClick.bind(handler));        //使用bind()方法只需要指向规定的对象即可
    ```
+
+### (五) Javascript防篡改对象
+
+ 1. **第一级别: 不可扩展对象**
+
+    不可扩展对象就是任何时候都不能向对象中添加属性和方法, 防止被别人意外修改对象
+    
+    ```javascript
+    var person = {
+        name: "Andraw"
+    };
+    
+    console.log(Object.isExtensions(person));   //true, 可扩展
+    
+    Object.preventExtensions(person);           //防止向对象添加属性和方法
+    
+    console.log(Object.isExtensions(person));   //false, 不可扩展
+    
+    person.age = 22;
+    console.log(person.age);                    //undefined
+    ```
+    
+    
+
+ 2. **第二级别: 密封对象**
+
+    密封对象就是在不可扩展对象的基础上, 不能删除属性和方法
+    
+    ```javascript
+    var person = {
+        name: "Andraw"
+    }
+    
+    console.log(Object.isExtensions(person));   //true, 可扩展
+    console.log(Object.isSealed(person));       //false, 可删除
+    
+    Object.seal(person);                        //不能删除属性和方法
+    
+    console.log(Object.isExtensions(person));   //false, 不可扩展
+    console.log(Object.isSealed(person));       //true, 不可删除
+    
+    delete person.name;
+    console.log(person.name);                   //undefined
+    ```
+    
+
+ 3. **冻结对象**
+
+    冻结的对象既不可以扩展, 又是密封的, 而且对象数据属性不能修改
+    
+    ```javascript
+    var person = {
+        name: "Andraw"
+    };
+    
+    console.log(Object.isExtensions(person));   //true, 可扩展
+    console.log(Object.isSealed(person));       //false, 可删除
+    console.log(Object.isFrozen(person));       //false, 可修改
+    
+    Object.freeze(person);
+    
+    console.log(Object.isExtensions(person));   //false, 不可扩展
+    console.log(Object.isSealed(person));       //true, 不可删除
+    console.log(Object.isFrozen(person));       //true, 不可修改
+    
+    person.name = "Tom";
+    console.log(person.name);                   //"Andraw"
+    ```
