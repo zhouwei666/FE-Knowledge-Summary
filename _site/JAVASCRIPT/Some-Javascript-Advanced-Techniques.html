@@ -5,6 +5,7 @@
   <li><a href="#二-建立作用域安全的构造函数">(二) 建立作用域安全的构造函数</a></li>
   <li><a href="三-惰性载入函数">(三) 惰性载入函数</a></li>
   <li><a href="四-函数绑定">(四) 函数绑定</a></li>
+  <li><a href="五-javascript防篡改对象">(五) Javascript防篡改对象</a></li>
 </ul>
 
 <h3 id="json">(一) 检测一个json对象是原生对象还是开发者自定义的对象</h3>
@@ -217,3 +218,74 @@
     </div>
   </li>
 </ul>
+
+<h3 id="javascript-1">(五) Javascript防篡改对象</h3>
+
+<ol>
+  <li>
+    <p><strong>第一级别: 不可扩展对象</strong></p>
+
+    <p>不可扩展对象就是任何时候都不能向对象中添加属性和方法, 防止被别人意外修改对象</p>
+
+    <div class="highlighter-rouge"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">person</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="na">name</span><span class="p">:</span> <span class="s2">"Andraw"</span>
+<span class="p">};</span>
+    
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nb">Object</span><span class="p">.</span><span class="nx">isExtensions</span><span class="p">(</span><span class="nx">person</span><span class="p">));</span>   <span class="c1">//true, 可扩展</span>
+    
+<span class="nb">Object</span><span class="p">.</span><span class="nx">preventExtensions</span><span class="p">(</span><span class="nx">person</span><span class="p">);</span>           <span class="c1">//防止向对象添加属性和方法</span>
+    
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nb">Object</span><span class="p">.</span><span class="nx">isExtensions</span><span class="p">(</span><span class="nx">person</span><span class="p">));</span>   <span class="c1">//false, 不可扩展</span>
+    
+<span class="nx">person</span><span class="p">.</span><span class="nx">age</span> <span class="o">=</span> <span class="mi">22</span><span class="p">;</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">person</span><span class="p">.</span><span class="nx">age</span><span class="p">);</span>                    <span class="c1">//undefined</span>
+</code></pre>
+    </div>
+  </li>
+  <li>
+    <p><strong>第二级别: 密封对象</strong></p>
+
+    <p>密封对象就是在不可扩展对象的基础上, 不能删除属性和方法</p>
+
+    <div class="highlighter-rouge"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">person</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="na">name</span><span class="p">:</span> <span class="s2">"Andraw"</span>
+<span class="p">}</span>
+    
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nb">Object</span><span class="p">.</span><span class="nx">isExtensions</span><span class="p">(</span><span class="nx">person</span><span class="p">));</span>   <span class="c1">//true, 可扩展</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nb">Object</span><span class="p">.</span><span class="nx">isSealed</span><span class="p">(</span><span class="nx">person</span><span class="p">));</span>       <span class="c1">//false, 可删除</span>
+    
+<span class="nb">Object</span><span class="p">.</span><span class="nx">seal</span><span class="p">(</span><span class="nx">person</span><span class="p">);</span>                        <span class="c1">//不能删除属性和方法</span>
+    
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nb">Object</span><span class="p">.</span><span class="nx">isExtensions</span><span class="p">(</span><span class="nx">person</span><span class="p">));</span>   <span class="c1">//false, 不可扩展</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nb">Object</span><span class="p">.</span><span class="nx">isSealed</span><span class="p">(</span><span class="nx">person</span><span class="p">));</span>       <span class="c1">//true, 不可删除</span>
+    
+<span class="k">delete</span> <span class="nx">person</span><span class="p">.</span><span class="nx">name</span><span class="p">;</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">person</span><span class="p">.</span><span class="nx">name</span><span class="p">);</span>                   <span class="c1">//undefined</span>
+</code></pre>
+    </div>
+  </li>
+  <li>
+    <p><strong>冻结对象</strong></p>
+
+    <p>冻结的对象既不可以扩展, 又是密封的, 而且对象数据属性不能修改</p>
+
+    <div class="highlighter-rouge"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">person</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="na">name</span><span class="p">:</span> <span class="s2">"Andraw"</span>
+<span class="p">};</span>
+    
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nb">Object</span><span class="p">.</span><span class="nx">isExtensions</span><span class="p">(</span><span class="nx">person</span><span class="p">));</span>   <span class="c1">//true, 可扩展</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nb">Object</span><span class="p">.</span><span class="nx">isSealed</span><span class="p">(</span><span class="nx">person</span><span class="p">));</span>       <span class="c1">//false, 可删除</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nb">Object</span><span class="p">.</span><span class="nx">isFrozen</span><span class="p">(</span><span class="nx">person</span><span class="p">));</span>       <span class="c1">//false, 可修改</span>
+    
+<span class="nb">Object</span><span class="p">.</span><span class="nx">freeze</span><span class="p">(</span><span class="nx">person</span><span class="p">);</span>
+    
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nb">Object</span><span class="p">.</span><span class="nx">isExtensions</span><span class="p">(</span><span class="nx">person</span><span class="p">));</span>   <span class="c1">//false, 不可扩展</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nb">Object</span><span class="p">.</span><span class="nx">isSealed</span><span class="p">(</span><span class="nx">person</span><span class="p">));</span>       <span class="c1">//true, 不可删除</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nb">Object</span><span class="p">.</span><span class="nx">isFrozen</span><span class="p">(</span><span class="nx">person</span><span class="p">));</span>       <span class="c1">//true, 不可修改</span>
+    
+<span class="nx">person</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="s2">"Tom"</span><span class="p">;</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">person</span><span class="p">.</span><span class="nx">name</span><span class="p">);</span>                   <span class="c1">//"Andraw"</span>
+</code></pre>
+    </div>
+  </li>
+</ol>

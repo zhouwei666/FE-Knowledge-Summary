@@ -9,6 +9,7 @@
   <li><a href="#六-http响应">(六) HTTP响应</a></li>
   <li><a href="#七-http状态码">(七) HTTP状态码</a></li>
   <li><a href="#八-http20与http1x对比">(八) HTTP/2.0与HTTP/1.x对比</a></li>
+  <li><a href="九-了解cdn工作流程">(九) 了解CDN工作流程</a></li>
 </ul>
 
 <h3 id="http">(一) HTTP协议的定义</h3>
@@ -256,3 +257,7 @@
   <li>HTTP/2.0能够使用专门的HPACK算法为首部进行压缩;</li>
   <li>在HTTP/2.0基础上,服务端可以对客户端的一个请求发送多个响应;</li>
 </ol>
+
+<h3 id="cdn">(九) 了解CDN工作流程</h3>
+
+<p>当浏览器在发送请求的时候, 会有一个域名解析成 IP 的过程. 在 DNS 解析的时候，会依次找到你本地的 host，如果没有找到就会到当地运营商的 DNS 去解析，一般叫 Local DNS，然后 Local DNS 把域名从后到前进行解析，解析到主域名的时候就会得到一条 cName，然后就根据这个 cName 请求到 cName 本身的 DNS 服务器上。如果这个 DNS 有做 CDN 服务，它就会从 Local DNS 的请求中拿到运营商 IP，知道你的请求来自哪里，然后根据你的地点，通过一定的算法，找到最接近你，最适合你的 CDN 节点的 IP 返回给浏览器.</p>
