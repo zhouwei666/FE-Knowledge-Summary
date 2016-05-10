@@ -7,14 +7,14 @@ summary: A little Summary In << Professional JavaScript for Web Developers >>
 
 ## **A little Summary In << Professional JavaScript for Web Developers >>(To Be Continue)**
 
-- [(一) 基本概念](#section)
-- [(二) 作用域和内存问题](#section-1)
-- [(三) 引用类型](#section-2)
-- [(五) BOM](#bom)
-- [(六) DOM](#dom)
-- [(七) 事件](#section-3)
-- [(八) 表单脚本](#section-4)
-- [(九) JSON](#json)
+- [(一) 基本概念](一-基本概念)
+- [(二) 作用域和内存问题](二-作用域和内存问题)
+- [(三) 引用类型](三-引用类型)
+- [(五) BOM](五-bom)
+- [(六) DOM](六-dom)
+- [(七) 事件](七-事件)
+- [(八) 表单脚本](八-表单脚本)
+- [(九) JSON](九-JSON)
 
 ### (一) 基本概念
 
@@ -836,6 +836,11 @@ summary: A little Summary In << Professional JavaScript for Web Developers >>
      - 事件捕获阶段顺序: 沿着DOM树依次向下,一直传播到事件的实际目标;
      - 事件冒泡阶段顺序: 沿着DOM树依次向上,直至传播到document对象;
      - 事件处理程序(或事件侦听器): 响应某个事件函数;事件: 用户或者浏览器自身执行的某种动作;
+     - 事件处理程序的过程: 
+       + 当你点击一个元素的时候，浏览器并不知道你所点击的确定元素是哪个，它会从 DOM tree 的最高层一层一层往下找，尽可能地找到这个元素所处的最低一层，这就是我们的捕获阶段;
+       + 当浏览器找到这个元素的最低层的时候，就会触发绑定在这个元素上的 handler，这就是我们的第二个阶段，处于目标阶段;
+       + 当执行完这个 handler 的时候，浏览器就会根据捕获时的路径，往回走，这时候就会触发绑定在父元素的 handler，这个阶段就是我们的事件冒泡阶段;
+       + 例如, 有一个div元素里面加入一个p元素, 在p元素里面加入span元素, 这时候我们在每个元素上都添加一个点击事件处理函数, 当我点击div的时候, 会先触发span事件处理函数, 然后冒泡上去, 触发p元素, 最后再触发div元素;
      - HTML事件处理程序中,函数内部可以通过even变量直接访问事件对象,例如
 
        ```javascript
