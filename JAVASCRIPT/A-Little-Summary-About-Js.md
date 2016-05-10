@@ -7,14 +7,14 @@ summary: A little Summary In << Professional JavaScript for Web Developers >>
 
 ## **A little Summary In << Professional JavaScript for Web Developers >>(To Be Continue)**
 
-- [(一) 基本概念](一-基本概念)
-- [(二) 作用域和内存问题](二-作用域和内存问题)
-- [(三) 引用类型](三-引用类型)
-- [(五) BOM](五-bom)
-- [(六) DOM](六-dom)
-- [(七) 事件](七-事件)
-- [(八) 表单脚本](八-表单脚本)
-- [(九) JSON](九-JSON)
+- [(一) 基本概念](#一-基本概念)
+- [(二) 作用域和内存问题](#二-作用域和内存问题)
+- [(三) 引用类型](#三-引用类型)
+- [(五) BOM](#五-bom)
+- [(六) DOM](#六-dom)
+- [(七) 事件](#七-事件)
+- [(八) 表单脚本](#八-表单脚本)
+- [(九) JSON](#九-JSON)
 
 ### (一) 基本概念
 
