@@ -1,0 +1,168 @@
+<h2 id="html"><strong>HTML整体总结</strong></h2>
+
+<ul>
+  <li><a href="#一-doctype">(一) Doctype</a></li>
+  <li><a href="#二-meta">(二) Meta</a></li>
+  <li><a href="#三-html5新增知识">(三) HTML5新增知识</a></li>
+  <li><a href="#四-网站性能优化">(四) 网站性能优化</a></li>
+  <li><a href="#五-浏览器如何渲染">(五) 浏览器如何渲染</a></li>
+  <li><a href="#六-移动端性能优化">(六) 移动端性能优化</a></li>
+  <li><a href="#七-sessionstoragelocalstoragecookie区别">(七) sessionStorage,localStorage,cookie区别</a></li>
+  <li><a href="#八-cookie与session区别">(八) cookie与session区别</a></li>
+</ul>
+
+<h3 id="doctype">(一) Doctype</h3>
+
+<ol>
+  <li>
+    <p>定义:</p>
+
+    <p>指示web浏览器关于页面使用哪个 HTML 版本进行编写与渲染页面的指令;</p>
+  </li>
+  <li>
+    <p>作用:</p>
+
+    <p>确保HTML元素能够在绝大多数的浏览器上呈现;另外,一般浏览器默认都会使用怪异模式解析渲染页面,doctype的出现能够使浏览器严格遵守标准模式(即让浏览器按照符合W3C的标准解析渲染页面);</p>
+  </li>
+</ol>
+
+<h3 id="meta">(二) Meta</h3>
+
+<p>主要有两个主要属性:</p>
+
+<ol>
+  <li>name ( 用于描述网页 );</li>
+  <li>http-equiv ( 相当于http文件头作用,可以向浏览器传回一些有用的信息,帮助正确和精确地显示网页内容 );</li>
+</ol>
+
+<p><a href="https://github.com/Andraw-lin/Andraw-lin.github.io/blob/master/_posts/2016-03-20-In-Depth-Understanding-HTML-Meta-Tag.md">Meta详细解析</a></p>
+
+<h3 id="html5">(三) HTML5新增知识</h3>
+
+<ol>
+  <li>拖拽拖放;</li>
+  <li>语义化标签;</li>
+  <li>音频 ( audio ), 视频 ( video );</li>
+  <li>画布 ( cavans );</li>
+  <li>地理 ( getCurrentPosition() );</li>
+  <li>本地存储 ( localStorage );</li>
+</ol>
+
+<h3 id="section">(四) 网站性能优化</h3>
+
+<ol>
+  <li>
+    <p>内容方面:</p>
+
+    <ul>
+      <li>减少HTTP请求：合并文件、CSS精灵、inline Image</li>
+      <li>减少DOM元素数量(联系到伪元素:before与:after)</li>
+      <li>避免重定向(多余的中间访问)</li>
+      <li>使Ajax可缓存</li>
+      <li>将资源放到不同的域下：浏览器同时从一个域下载资源的数目有限，增加域可以提高并行下载量</li>
+    </ul>
+  </li>
+  <li>
+    <p>CSS方面:</p>
+
+    <ul>
+      <li>将样式表放到页面顶部</li>
+      <li>不使用@import</li>
+      <li>最好引用以min.css为后缀的css文件</li>
+    </ul>
+  </li>
+  <li>
+    <p>Javascript方面:</p>
+
+    <ul>
+      <li>将脚本放到页面底部</li>
+      <li>将javascript和css从外部引入</li>
+      <li>减少DOM操作</li>
+      <li>合理设计事件监听器</li>
+    </ul>
+  </li>
+  <li>
+    <p>Cookie方面:</p>
+
+    <ul>
+      <li>减小cookie大小</li>
+      <li>引入资源的域名不要包含cookie</li>
+    </ul>
+  </li>
+</ol>
+
+<h3 id="section-1">(五) 浏览器如何渲染</h3>
+
+<ol>
+  <li>
+    <p>常见的浏览器内核:</p>
+
+    <ul>
+      <li>IE内核: Trident ( Trident内核曾经几乎与W3C标准脱节（2005年），二是Trident内核的大量 Bug等安全性问题没有得到及时解决 );</li>
+      <li>火狐内核: Gecko ( 代码完全公开，可以让全世界程序员为其编写代码，增加功能 );</li>
+      <li>Opera内核: Presto ( 公认的网页浏览速度最快的浏览器内核，但却牺牲了网页的兼容性 );</li>
+      <li>Safari和Chrome内核: webkit ( 自由软件，同时开放源代码 );</li>
+    </ul>
+  </li>
+  <li>
+    <p>渲染过程:</p>
+
+    <ul>
+      <li>解析HTML以构建DOM树 ( 即转换树中的标签到DOM节点 );</li>
+      <li>构建渲染树 ( 根据CSS选择器计算出节点的样式，创建渲染树 );</li>
+      <li>布局渲染树 ( 从根节点递归调用，计算每一个元素的大小、位置等, 找出每个节点在屏幕上的精确坐标 );</li>
+      <li>绘制渲染树</li>
+    </ul>
+  </li>
+</ol>
+
+<p><a href="https://github.com/Andraw-lin/Andraw-lin.github.io/blob/master/_posts%2F2016-04-14-How-Browser-Work.md">浏览器如何渲染详细分析</a></p>
+
+<h3 id="section-2">(六) 移动端性能优化</h3>
+
+<ol>
+  <li>在<code class="highlighter-rouge">&lt;head&gt;</code>里引入CSS文件, 在<code class="highlighter-rouge">&lt;/body&gt;</code>后面引入js</li>
+  <li>减少DOM操作;</li>
+  <li>尽量使用CSS3动画, 开启硬体加速 ( 可以用transform: translateZ(0)来开启硬件加速 );</li>
+  <li>适当使用touch事件代替click事件;</li>
+  <li>不滥用Float ( Float在渲染时计算量比较大，尽量减少使用 );</li>
+</ol>
+
+<h3 id="sessionstoragelocalstoragecookie">(七) sessionStorage,localStorage,cookie区别</h3>
+
+<p>同源成立条件：协议相同、域名相同、端口相同；</p>
+
+<ol>
+  <li>
+    <p>生命周期不同. 
+cookie在设置的有效期内有效, 默认为浏览器关闭；sessionStorage在窗口关闭前有效，localStorage长期有效，直到用户删除;</p>
+  </li>
+  <li>
+    <p>请求时行为不同.</p>
+
+    <p>cookie会在请求时发送到服务器，作为会话标识，服务器可修改cookie；web storage不会发送到服务器;</p>
+  </li>
+  <li>
+    <p>存储大小不同.</p>
+
+    <p>浏览器不能保存超过300个cookie，单个服务器不能超过20个，每个cookie不能超过4k。web storage大小支持能达到5M;</p>
+  </li>
+  <li>
+    <p>分享行为不同.</p>
+
+    <p>sessionStorage不能共享，localStorage在同源文档之间共享，cookie在同源且符合path规则的文档之间共享;</p>
+  </li>
+  <li>
+    <p>作用不同.</p>
+
+    <p>cookie的作用是与服务器进行交互，作为HTTP规范的一部分而存在 ，而Web Storage仅仅是为了在本地“存储”数据而生;</p>
+  </li>
+</ol>
+
+<h3 id="cookiesession">(八) cookie与session区别</h3>
+
+<ol>
+  <li>cookie数据存放在客户的浏览器上，session数据放在服务器上；</li>
+  <li>cookie不是很安全，别人可以分析存放在本地的COOKIE并进行COOKIE欺骗考虑到安全应当使用session；</li>
+  <li>session会在一定时间内保存在服务器上。当访问增多，会比较占用你服务器的性能考虑到减轻服务器性能方面，应当使用COOKIE；</li>
+</ol>

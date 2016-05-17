@@ -1,0 +1,148 @@
+<h2 id="section"><strong>网络知识整体总结</strong></h2>
+
+<ul>
+  <li><a href="#一-http定义特点请求响应和状态码">(一) HTTP定义,特点,请求响应和状态码</a></li>
+  <li><a href="#二-安全">(二) 安全</a></li>
+  <li><a href="#三-缓存">(三) 缓存</a></li>
+  <li><a href="#四-cdn工作流程">(四) CDN工作流程</a></li>
+</ul>
+
+<h3 id="http">(一) HTTP定义,特点,请求响应和状态码</h3>
+
+<ol>
+  <li>
+    <p>定义</p>
+
+    <p>HTTP是一个应用成协议, 用于定义WEB浏览器与WEB服务器之间交换数据的过程, HTTP协议用于定义客户端与服务端通讯的一种规范;</p>
+  </li>
+  <li>
+    <p>主要特点</p>
+
+    <ul>
+      <li>支持C/S(客户/服务器)模式;</li>
+      <li>简单快速: 
+客户端向服务器请求数据时, 只需要传送请求方法和路径;</li>
+      <li>灵活: 
+HTTP允许传输任意类型的数据对象(传输的类型由Content-Type加以标记);</li>
+      <li>无连接:
+无连接的含义是限制每次连接只处理一个请求 , 服务器处理完客户的请求，并收到客户的应答后，即断开连接。采用这种方式可以节省传输时间;</li>
+      <li>无状态:
+无状态是指HTTP协议对于事务处理没有记忆能力,缺少状态意味着如果后续处理需要前面的信息，则它必须重传，这样可能导致每次连接传送的数据量增大 , 另一方面，在服务器不需要先前信息时它的应答就较快;</li>
+    </ul>
+  </li>
+  <li>
+    <p>请求响应</p>
+
+    <ul>
+      <li>
+        <p>格式:</p>
+
+        <div class="highlighter-rouge"><pre class="highlight"><code>//请求格式
+<span class="nt">&lt;method&gt;&lt;request-URL&gt;&lt;version&gt;</span>    //起始行
+<span class="nt">&lt;headers&gt;</span>                         //首部
+<span class="nt">&lt;entity-body&gt;</span>                     //实体内容
+      
+//响应格式
+<span class="nt">&lt;version&gt;&lt;status&gt;&lt;respon-phare&gt;</span>   //起始行
+<span class="nt">&lt;headers&gt;</span>                         //首部
+<span class="nt">&lt;entity-body&gt;</span>                     //实体内容
+</code></pre>
+        </div>
+      </li>
+      <li>
+        <p>请求方式
+请求行中的请求方式包括POST、GET、HEAD、OPTIONS、DELETE、TRACE、PUT,其中常用的就是GET和POST,默认使用的是GET方式;</p>
+      </li>
+      <li>
+        <p><a href="https://github.com/Andraw-lin/FE-Knowledge-Summary/blob/master/HTML/Know-About-HTTP.md">详细http解析</a></p>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>状态码</p>
+
+    <ul>
+      <li>1xx: 指示信息作用. 表示请求已被成功接收, 继续处理;</li>
+      <li>2xx: 成功. 表示请求已被成功接收, 理解, 接收;</li>
+      <li>3xx: 重定向. 要完成请求必须更进一步的操作;</li>
+      <li>4xx: 客户端错误. 请求有语法错误或请求无法实现;</li>
+      <li>5xx: 服务端错误. 服务器未能实现合法的请求;</li>
+    </ul>
+  </li>
+  <li>
+    <p>HTTP/2.0与HTTP/1.x对比</p>
+
+    <ul>
+      <li>提升了WEB性能,在HTTP/1.1完全语义兼容的基础下,进一步减少了网络延迟;</li>
+      <li>可以实行多路复用,允许同时通过单一的HTTP/2.0连接发起多重的请求-响应消息;</li>
+      <li>能够使用专门的HPACK算法为首部进行压缩;</li>
+      <li>服务端可以对客户端的一个请求发送多个响应;</li>
+    </ul>
+  </li>
+</ol>
+
+<h3 id="section-1">(二) 安全</h3>
+
+<ol>
+  <li>
+    <p>xss(cross-site-scripting)</p>
+
+    <ul>
+      <li>
+        <p>定义
+攻击者向WEB页面里恶意插入html表亲或者javascript代码(例如攻击者在论坛上加一个恶意表单, 当用户提交表单的时候, 却把信息传送到攻击者的服务器中，而不是用户原本以为的信任站点);</p>
+      </li>
+      <li>
+        <p>防范方法</p>
+        <ul>
+          <li>过滤”&lt;”和”&gt;”标记(恶意的HTML标签和javascript代码都含有”&lt;”和”&gt;”), 还要过滤HTML属性(例如&lt;img src=”javascript:alert(/XSS攻击/)” width=100&gt;图片src属性包含恶意js代码);</li>
+          <li>过滤特殊字符: &amp;、回车和空格;</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>CSRF(Cross-Site Request Forgery)</p>
+
+    <ul>
+      <li>
+        <p>定义</p>
+
+        <p>跨站请求伪造, 指的是攻击者盗用了你的身份, 以你的名义发送恶意请求;</p>
+      </li>
+      <li>
+        <p>原理</p>
+
+        <ul>
+          <li>用户 C 登录信任网站 A;</li>
+          <li>通过验证，在用户 C 处产生 A 的 cookie;</li>
+          <li>用户在没有登出 A 的情况下，访问危险网站 B;</li>
+          <li>B 要求访问网站 A，发出一个请求;</li>
+          <li>用户 C 的浏览器就会访问 A，并带着 cookie;</li>
+          <li>网站 A 根据 cookie 拿到用户 C 权限，但是却做着 B 的请求;</li>
+        </ul>
+      </li>
+      <li>
+        <p>防范方法</p>
+
+        <ul>
+          <li>验证 HTTP Referer 字段;</li>
+          <li>请求中加入 token;</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ol>
+
+<h3 id="section-2">(三) 缓存</h3>
+
+<ol>
+  <li>浏览器缓存的类型有 强缓存 和 协商缓存 两种;</li>
+  <li>在浏览器去加载一个资源的时候，会先根据这一个资源上一次 HTTP 返回报文的 Expires 和 Cache-Control 这两个 header 来判断这个资源是否属于强缓存，如果属于，不向服务器发送请求，直接从缓存中加载，HTTP 状态码为 200，而返回的报文和数据都是上一次请求时保存起来的;</li>
+  <li>如果不属于强缓存，浏览器就一定会发送这个请求，而服务器就会根据 HTTP 请求报文中的 If-Modified-Since 和 ETag 与服务器的这个资源的 Last-Modified 和 If-None-Match 判断是否属于协商缓存，如果属于，HTTP 状态码为 304，那么浏览器就又会在缓存中拿到我们的资源;</li>
+  <li>如果不属于协商缓存，则正常请求，正常返回;</li>
+</ol>
+
+<h3 id="cdn">(四) CDN工作流程</h3>
+
+<p>当浏览器在发送请求的时候, 会有一个域名解析成 IP 的过程. 在 DNS 解析的时候，会依次找到你本地的 host，如果没有找到就会到当地运营商的 DNS 去解析，一般叫 Local DNS，然后 Local DNS 把域名从后到前进行解析，解析到主域名的时候就会得到一条 cName，然后就根据这个 cName 请求到 cName 本身的 DNS 服务器上。如果这个 DNS 有做 CDN 服务，它就会从 Local DNS 的请求中拿到运营商 IP，知道你的请求来自哪里，然后根据你的地点，通过一定的算法，找到最接近你，最适合你的 CDN 节点的 IP 返回给浏览器.</p>

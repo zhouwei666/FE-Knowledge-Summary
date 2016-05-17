@@ -22,3 +22,18 @@
  - [2. Something About Javascript](https://github.com/Andraw-lin/FE-Knowledge-Summary/blob/master/JAVASCRIPT/Something-About-Javascript.md)
 
  - [3. Some Javascript Advanced Techniques](https://github.com/Andraw-lin/FE-Knowledge-Summary/blob/master/JAVASCRIPT/Some-Javascript-Advanced-Techniques.md)
+
+## OTHERS
+
+ - [1. Others](https://github.com/Andraw-lin/FE-Knowledge-Summary/blob/master/OTHERS%2FOthers.md)
+
+
+## Extra
+
+ - [1. About HTML](https://github.com/Andraw-lin/FE-Knowledge-Summary/blob/master/HTML/About-HTML.md)
+
+ - [2. About Javascript](https://github.com/Andraw-lin/FE-Knowledge-Summary/blob/master/JAVASCRIPT/About-Javascript.md)
+
+ - [3. About Network](https://github.com/Andraw-lin/FE-Knowledge-Summary/blob/master/NETWORK/About-Network.md)
+
+ - [4. About Others](https://github.com/Andraw-lin/FE-Knowledge-Summary/blob/master/OTHERS%2FAbout-Others.md)

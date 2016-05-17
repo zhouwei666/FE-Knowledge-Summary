@@ -1,0 +1,50 @@
+<h2 id="section"><strong>其他类型整体总结</strong></h2>
+
+<ul>
+  <li><a href="#一-栈stack和队列queue区别">(一) 栈(stack)和队列(queue)区别</a></li>
+  <li><a href="#二-栈stack和堆heap区别">(二) 栈(stack)和堆(heap)的区别</a></li>
+  <li><a href="#三-快排实现">(三) 快排实现</a></li>
+  <li><a href="#四-jquery源码简单分析">(四) Jquery源码简单分析</a></li>
+  <li><a href="#五-ES6简单了解">(五) ES6简单了解</a></li>
+</ul>
+
+<h3 id="stackqueue">(一) 栈(stack)和队列(queue)区别</h3>
+
+<ol>
+  <li>栈的插入和删除操作都是在一端进行的，而队列的操作却是在两端进行的;</li>
+  <li>栈先进后出, 队列先进先出;</li>
+  <li>栈只允许在栈顶一端进行插入和删除，而队列只允许在表尾一端进行插入，在表头一端进行删除</li>
+</ol>
+
+<h3 id="stackheap">(二) 栈(stack)和堆(heap)区别</h3>
+
+<ol>
+  <li>栈区: 由编译器分配释放, 存放函数的参数值, 局部变量的值等;</li>
+  <li>堆区: 一般由程序员分配释放, 若程序员不释放, 程序结束时可能由OS回收;</li>
+</ol>
+
+<h3 id="section-1">(三) 快排实现</h3>
+
+<p>“快速排序”的思想:</p>
+
+<ol>
+  <li>在数据集之中, 找一个基准点(一般是第一个元素或者最后一个元素);</li>
+  <li>建立两个数组, 然后右指针找比基准数小的，左指针找比基准数大的, 通过几次比较交换后, 两个指针会相遇在一个数上, 然后与基准数交换;</li>
+</ol>
+
+<h3 id="jquery">(四) Jquery源码简单分析</h3>
+
+<ol>
+  <li>源码都封装在IIFE(自执行函数)里面;</li>
+  <li>原型属性和方法封装到了jquery.prototype里面;</li>
+  <li>将全局window对象作为参数传入(当jquery中访问window对象的时候，就不用将作用域链退回到顶层作用域了，从而可以更快的访问window对象);</li>
+</ol>
+
+<h3 id="es6">(五) ES6简单了解</h3>
+
+<ol>
+  <li>模板字符串;</li>
+  <li>箭头函数定义;</li>
+  <li>let,const命令声明变量方法;</li>
+  <li>promise对象;</li>
+</ol>
