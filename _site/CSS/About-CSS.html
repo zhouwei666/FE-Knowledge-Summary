@@ -1,0 +1,370 @@
+<h2 id="css"><strong>CSS整体总结</strong></h2>
+
+<ul>
+  <li><a href="#一-渐进增强和优雅降级区别">(一) 渐进增强和优雅降级区别</a></li>
+  <li><a href="#二-对合模型的理解以及它的兼容性">(二) 对合模型的理解以及它的兼容性</a></li>
+  <li><a href="#三-displaynone和visibilityhidden区别">(三) display: none 和 visibility: hidden 区别</a></li>
+  <li><a href="#四-link和@import区别">(四) link 和 @import 区别</a></li>
+  <li><a href="#五-positionabsolute和float属性的区别">(五) position: absolute 和 float属性的区别</a></li>
+  <li><a href="#六-谈谈对box-sizing属性的理解">(六) 谈谈对box-sizing属性的理解</a></li>
+  <li><a href="#七-css选择器以及优先级">(七) CSS选择器以及优先级</a></li>
+  <li><a href="#八-浮动原理以及清除浮动方法">(八) 浮动原理以及清除浮动方法</a></li>
+  <li><a href="#九-fouc以及如何避免">(九) FOUC以及如何避免</a></li>
+  <li><a href="#十-如何把元素水平居中和垂直居中">(十) 如何把元素水平居中和垂直居中</a></li>
+  <li><a href="#十一-描述下resetcss文件的作用和优缺点">(十一) 描述下reset CSS文件的作用和优缺点</a></li>
+  <li><a href="#十二-谈谈你对重构的理解">(十二) 谈谈你对重构的理解</a></li>
+</ul>
+
+<h3 id="section">(一) 渐进增强和优雅降级区别</h3>
+
+<ol>
+  <li>
+    <p>渐进增强</p>
+
+    <p>针对低版本浏览器进行构建页面( 保证最基本的功能 ), 然后在针对高浏览器进行效果, 效果等改进和追加功能( 达到更好的用户体验 );</p>
+  </li>
+  <li>
+    <p>优雅降级</p>
+
+    <p>一开始就构建完整功能的页面, 然后再针对低版本浏览器进行兼容;</p>
+  </li>
+</ol>
+
+<h3 id="section-1">(二) 对合模型的理解以及它的兼容性</h3>
+
+<ol>
+  <li>
+    <p>W3C标准盒模型</p>
+
+    <p>总宽度 = 左右外边距(margin) + 左右边框宽度(border) + 左右内边距(padding) + 内容宽度(width);</p>
+  </li>
+  <li>
+    <p>IE合模型</p>
+
+    <p>总宽度 = 左右外边距(margin) + 内容宽度(width);</p>
+  </li>
+  <li>
+    <p>解决这两种模型的兼容性方法</p>
+
+    <ul>
+      <li>使用条件注释语句;</li>
+      <li>使用CSS hacks;</li>
+    </ul>
+  </li>
+</ol>
+
+<h3 id="display-none--visibility-hidden-">(三) display: none 和 visibility: hidden 区别</h3>
+
+<ol>
+  <li>相同点: 两个属性都可以把一个元素进行隐藏不可见;</li>
+  <li>
+    <p>不同点:</p>
+
+    <ul>
+      <li>display: none 会让元素完全在渲染树中消失, 渲染的时候不占据任何DOM树空间; 非继承性, 子孙节点消失由于元素从渲染树消失造成, 通过修改子孙节点属性无法显示; 会造成文档的重排;</li>
+      <li>visibility: hidden 不会让元素从渲染树消失, 仍然占据空间, 只是内容不可见; 有继承性, 子孙节点消失是因为继承了hidden, 通过设置visibility: visible可以让子孙节点重新显示; 只会造成本元素的重绘;</li>
+    </ul>
+  </li>
+</ol>
+
+<h3 id="link--import-">(四) link 和 @import 区别</h3>
+
+<ol>
+  <li>link属于HTML标签, 而@import是CSS提供的;</li>
+  <li>当页面加载的时候, link会同时被加载, 而被@import引用的CSS会等到引用它的CSS文件被加载完再加载;</li>
+  <li>link是HTML标签, 无兼容性问题, @import只能在IE5以上才能识别;</li>
+  <li>link的优先级高于@import;</li>
+</ol>
+
+<h3 id="position-absolute--float">(五) position: absolute 和 float属性的区别</h3>
+
+<ol>
+  <li>相同点: 两者都能使元素脱离文档流, 并且可以设置其宽高;</li>
+  <li>不同点: absolute 会覆盖文档流中的其他元素, float 的元素则会仍然占据位置;</li>
+</ol>
+
+<h3 id="box-sizing">(六) 谈谈对box-sizing属性的理解</h3>
+
+<p>box-sizing属性主要用来控制元素的盒模型的解析模式, 默认值是content-box;</p>
+
+<ol>
+  <li>content-box：让元素维持W3C的标准盒模型. 设置width/height属性指的是content部分的宽/高;</li>
+  <li>border-box：让元素维持IE传统盒模型. 置width/height属性指的是border + padding + content;</li>
+</ol>
+
+<h3 id="css-1">(七) CSS选择器以及优先级</h3>
+
+<ol>
+  <li>
+    <p>基础选择器</p>
+
+    <ul>
+      <li>
+        <p>*通用选择器</p>
+
+        <p>匹配所有元素,不参与选择器优先级计算,兼容性为IE6+;</p>
+      </li>
+      <li>
+        <p>A(元素)标签选择器</p>
+
+        <p>匹配所有A元素,兼容性为IE6+;</p>
+      </li>
+      <li>
+        <p>.info类选择器:</p>
+
+        <p>匹配所有class属性中包含info的与元素,兼容性为IE6+;</p>
+      </li>
+      <li>
+        <p>ID选择器</p>
+
+        <p>匹配指定ID的元素,兼容性为IE6+</p>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>组合选择器</p>
+
+    <ul>
+      <li>
+        <p>A,B多元素选择器</p>
+
+        <p>匹配所有A元素或者B元素,兼容性为IE6+</p>
+      </li>
+      <li>
+        <p>A B后代选择器</p>
+
+        <p>匹配所有属于A元素后代的B元素,兼容性为IE6+</p>
+      </li>
+      <li>
+        <p>A &gt; B子元素选择器</p>
+
+        <p>匹配A的<code class="highlighter-rouge">子元素</code>中B元素,兼容性为IE7+</p>
+      </li>
+      <li>
+        <p>A + B直接兄弟选择器</p>
+
+        <p>匹配在A之后第一个兄弟节点是B元素,兼容性为IE7+</p>
+      </li>
+      <li>
+        <p>A ~ B兄弟选择器</p>
+
+        <p>选择A之后所有兄弟节点中是B元素,兼容性为IE7+</p>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>属性选择器</p>
+
+    <ul>
+      <li>
+        <p>A[att]</p>
+
+        <p>匹配所有设置了att属性的元素,兼容性为IE7+</p>
+      </li>
+      <li>
+        <p>A[att=val]</p>
+
+        <p>匹配所有att属性值等于val的元素,兼容性为IE7+</p>
+      </li>
+      <li>
+        <p>A[att~=val]</p>
+
+        <p>匹配所有att属性值具有多个空格分隔的值,其中一个值等于val的元素,兼容性为IE7+</p>
+      </li>
+      <li>
+        <table>
+          <tbody>
+            <tr>
+              <td>A[att</td>
+              <td>=val]</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <p>匹配所有att属性值以val开头或者刚好等于val的元素,兼容性为IE7+</p>
+      </li>
+      <li>
+        <p>A[att^=val]</p>
+
+        <p>匹配所有att属性值以val开头的元素,兼容性为IE7+</p>
+      </li>
+      <li>
+        <p>A[att$=val]</p>
+
+        <p>匹配所有att属性值以val结尾的元素,兼容性为IE7+</p>
+      </li>
+      <li>
+        <p>A[att*=val]</p>
+
+        <p>匹配所有att属性值中包含val的元素,兼容性为IE7+</p>
+      </li>
+      <li>
+        <p>[:checked]</p>
+
+        <p>匹配单选框,复选框,下拉框中选中状态下的元素,兼容性为IE9+</p>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>伪类选择器</p>
+
+    <ul>
+      <li>
+        <p>A:first-child</p>
+
+        <p>匹配满足的A元素,且A元素是其父节点的第一个子元素,兼容性为IE7+</p>
+      </li>
+      <li>
+        <p>A:last-child</p>
+
+        <p>匹配满足的A元素,且A元素是其父节点的最后一个子元素,兼容性为IE9+</p>
+      </li>
+      <li>
+        <p>:not(selector)</p>
+
+        <p>匹配不符合selector的元素,不参与选择器的优先级,兼容性为IE9+</p>
+      </li>
+      <li>
+        <p>A:link</p>
+
+        <p>匹配所有未被点击的链接,兼容性为IE7+</p>
+      </li>
+      <li>
+        <p>A:visited</p>
+
+        <p>匹配所有已被点击的链接,兼容性为IE7+</p>
+      </li>
+      <li>
+        <p>A:active</p>
+
+        <p>匹配鼠标已经其上按下,还没释放的A元素,兼容性为IE7+</p>
+      </li>
+      <li>
+        <p>A:hover</p>
+
+        <p>匹配鼠标悬停其上的A元素,兼容性为IE7+</p>
+      </li>
+      <li>
+        <p>A:focus</p>
+
+        <p>匹配所有获得当前焦点的A元素,兼容性为IE7+</p>
+      </li>
+      <li>
+        <p>:nth-child(An+B)</p>
+
+        <p>匹配其父元素的第An+B个子元素,兼容性为IE9+</p>
+      </li>
+      <li>
+        <p>:nth-last-child(An+B)</p>
+
+        <p>匹配其父元素的倒数第An+B个子元素,兼容性为IE9+</p>
+      </li>
+      <li>
+        <p>A:only-child</p>
+
+        <p>匹配满足的A元素,且A元素是其父元素的唯一子元素</p>
+      </li>
+      <li>
+        <p>:target</p>
+
+        <p>匹配文档中特定”id”点击后的效果(可使用:target实现tab切换)</p>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>伪元素选择器</p>
+
+    <ul>
+      <li>
+        <p>A::first-line</p>
+
+        <p>匹配快元素A元素的第一行,兼容性为IE6+</p>
+      </li>
+      <li>
+        <p>A::first-letter</p>
+
+        <p>匹配块元素A元素的第一个字母,兼容性为IE6+</p>
+      </li>
+      <li>
+        <p>::before和:before</p>
+
+        <p>选择元素虚拟子元素(元素的第一个子元素),CSS3中::表示伪元素,兼容性:before为IE8+,::after为IE9+</p>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>CSS选择器的效率从高到低是:</p>
+
+    <ul>
+      <li>id选择器</li>
+      <li>class选择器</li>
+      <li>标签选择器</li>
+      <li>直接兄弟选择器(h1+span)</li>
+      <li>子选择器(ul&gt;li)</li>
+      <li>后代选择器(ul a)</li>
+      <li>属性选择器</li>
+      <li>伪类,伪选择器</li>
+    </ul>
+  </li>
+</ol>
+
+<h3 id="section-2">(八) 浮动原理以及清除浮动方法</h3>
+
+<ol>
+  <li>
+    <p>如果对一个元素设置浮动，它就会脱离文本流直到碰到框的最左或者最右，普通流的其他元素会取代它原本的位置;</p>
+  </li>
+  <li>
+    <p><a href="https://github.com/Andraw-lin/Andraw-lin.github.io/blob/master/_posts/2016-03-29-Talking-About-The-Method-Of-Clearing-Floating-In-CSS.md">清除浮动方法</a>;</p>
+  </li>
+</ol>
+
+<h3 id="fouc">(九) FOUC以及如何避免</h3>
+
+<ol>
+  <li>
+    <p>定义:</p>
+
+    <p>Flash Of Unstyled Content的缩写,即文档样式闪烁,指的是在某些情况下,IE在加载页面时会出现短暂的CSS样式失效;</p>
+  </li>
+  <li>
+    <p>例子:</p>
+
+    <p>在head标签里面没有任何的link标签或者script标签,这时候在style标签面只用了@import导入外部样式,这时候,IE会先加载整个HTML文档的DOM,然后再去导入外部的CSS文件,在加载那段时间里页面的内容是没有任何样式的;</p>
+  </li>
+  <li>
+    <p>避免方法:</p>
+
+    <p>使用LINK标签将样式表放在文档HEAD中;</p>
+  </li>
+</ol>
+
+<h3 id="section-3">(十) 如何把元素水平居中和垂直居中</h3>
+
+<p><a href="https://github.com/Andraw-lin/Andraw-lin.github.io/blob/master/_posts/2016-03-30-Sum-Up-CSS-Horizontal-And-Vertical-Center.md">居中元素方法</a></p>
+
+<h3 id="reset-css">(十一) 描述下reset CSS文件的作用和优缺点</h3>
+
+<ol>
+  <li>
+    <p>定义:</p>
+
+    <p>每个浏览器对于不同元素的css样式的默认值是不一样的，使用reset可以统一css样式;</p>
+  </li>
+  <li>
+    <p>优点:</p>
+
+    <p>使用CSS reset可以很好地解决浏览器在解析颜色样式上的差异问题,减少了开发人员工作;</p>
+  </li>
+  <li>
+    <p>缺点:</p>
+
+    <p>CSS reset 通常会增加浏览器进行样式计算的成本（即有一定的性能负担），因为它引入了许多的针对元素的全局规则，网页中几乎所有元素都会匹配一条乃至几条的reset规则，且往往规则中的属性设定其实会被更specific的规则所覆盖;</p>
+  </li>
+</ol>
+
+<h3 id="section-4">(十二) 谈谈你对重构的理解</h3>
+
+<p>网站重构：在不改变外部行为的前提下，简化结构、添加可读性，而在网站前端保持一致的行为。也就是说是在不改变UI的情况下，对网站进行优化， 在扩展的同时保持一致的UI;</p>
+
+<p><a href="###">可以扯到性能优化方面</a></p>

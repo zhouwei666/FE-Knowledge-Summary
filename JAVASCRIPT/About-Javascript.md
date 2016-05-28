@@ -32,6 +32,14 @@ summary: About Javascript
  
     能够兼容几乎所有的浏览器, 目前最后跨域方法;
 
+ 4. window.name: 
+
+    window对象有个name属性, 该属性有个特征: 即在一个窗口(window)的生命周期内, 窗口载入的所有的页面都是共享一个window.name的, 每个页面对window.name都有读写的权限, window.name是持久存在一个窗口载入过的所有页面中的;
+    
+ 5. 主域相同的时候使用document.domain:
+
+    将子域和主域的document.domain设为同一个主域. 前提条件: 这两个域名必须属于同一个基础域名;
+
 
 ### (二) 作用域链
 
