@@ -10,9 +10,9 @@ summary: About CSS
 
  - [(一) 渐进增强和优雅降级区别](#一-渐进增强和优雅降级区别)
  - [(二) 对合模型的理解以及它的兼容性](#二-对合模型的理解以及它的兼容性)
- - [(三) display: none 和 visibility: hidden 区别](#三-displaynone和visibilityhidden区别)
- - [(四) link 和 @import 区别](#四-link和@import区别)
- - [(五) position: absolute 和 float属性的区别](#五-positionabsolute和float属性的区别)
+ - [(三) display: none 和 visibility: hidden 区别](#三-display-none-和-visibility-hidden-区别)
+ - [(四) link 和 @import 区别](#四-link-和-import-区别)
+ - [(五) position: absolute 和 float属性的区别](#五-position-absolute-和-float属性的区别)
  - [(六) 谈谈对box-sizing属性的理解](#六-谈谈对box-sizing属性的理解)
  - [(七) CSS选择器以及优先级](#七-css选择器以及优先级)
  - [(八) 浮动原理以及清除浮动方法](#八-浮动原理以及清除浮动方法)
