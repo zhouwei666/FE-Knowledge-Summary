@@ -107,6 +107,7 @@ summary: About HTML
 同源成立条件：协议相同、域名相同、端口相同；
 
  1. 生命周期不同. 
+ 
     cookie在设置的有效期内有效, 默认为浏览器关闭；sessionStorage在窗口关闭前有效，localStorage长期有效，直到用户删除;
 
  2. 请求时行为不同.
