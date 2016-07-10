@@ -3,6 +3,8 @@ Tags：ES6学习总结
 ## Learning Summary In ES6
 
  - [(一) 变量与字符串](#一-变量与字符串)
+ - [(二) 数值](#二-数值)
+ - [(三) 数组](#三-数组)
 
 ### (一) 变量与字符串
 
@@ -318,3 +320,117 @@ Tags：ES6学习总结
       ```
       
       注意: 如果参数不是数值, Math.hypot方法会将其转为数值, 只要有一个参数无法转为数值, 就会返回NaN;
+
+### (三) 数组
+
+ 1. 将两类对象转为真正的数组 ( Array.from )
+ 
+    Array.from ( ) 方法用于将两类对象转为真正的数组: 类似数组的对象和可遍历的对象, 例如; 
+
+    ```javascript
+        var obj = {
+            0: "yeah",
+            "1": "haha",
+            name: "Andraw",
+            length: 4
+        };
+        var str = Array.from(obj);
+        console.log(str);       //输出为: ["yeah", "haha", undefined, undefined];
+    ```
+    注意: 转为数组的时候, 必须带有length属性, 否则无法把对象或者字符串转化为数组, 即空数组 [ ];
+    
+    Array.from ( ) 还接收第二个参数, 作用类似数组的map的方法, 用来对每个元素进行处理, 也可传一个函数作为第二个参数, 例如: 
+    
+    ```javascript
+        var str = "Andraw";
+        var arr = Array.from(str, function(x){
+            console.log(x);
+        });
+        // 输出为: ["A", "n", "d", "r", "a", "w"];
+    ```
+    Array.from()的一个应用是: 将字符串转为数组, 然后返回字符串的长度, 这样可以避免JavaScript将大于\uFFFF的Unicode字符(即汉字), 算作两个字符的bug.
+    
+
+ 2. 将值转换为数组 ( Array.of )
+ 
+    Array.of方法用于将一组值, 转换为数组, 例如: 
+
+    ```javascript
+        Array.of(3, 11, 8);             // 输出为: [3, 11, 8]
+        Array.of(3);                    // 输出为: [3]
+        Array.of(3).length;             // 输出为: 1
+    ```
+    
+    Array.of( ) 这个方法的主要目的是, 弥补数组构造函数的缺陷, 因为在数组构造函数里会根据参数个数的不同导致Array( ) 的行为有差异, 例如:
+    
+    ```javascript
+        Array();                        // 输出为: []
+        Array(3);                       // 输出为: [undefined, undefined, undefined]
+        Array(3, 11);                   // 输出为: [3, 11]
+    ```
+    
+    上面代码说明, 对于数组的构造函数, 值有当参数个数不少于2个! ! !  Array( ) 才会返回由参数组成的新数组;
+    
+
+ 3. 找出第一个符合条件的数组成员和位置 ( find和findIndex )
+ 
+    - find 方法
+    
+      用于找出第一个符合条件的数组成员, 只要找到第一个符合条件的数组元素, 即返回该元素, 如果找不到符合的成员, 则返回 undefined, 例如:
+
+      ```javascript
+        var arr = [1, -5, -2, 3, 0].find(function(value, index, arr){
+            return value<0;
+        });
+        console.log(arr);               // 输出为: -5
+      ```
+      
+      find 中的回调函数的参数依次是: 当前的值, 当前的位置, 原数组;
+      
+    - findIndex 方法
+    
+      用法与 find 方法非常类似, 返回第一个符合条件的数组成员的位置, 如果所有成员都不符合条件, 则返回 -1 ,例如: 
+      
+      ```javascript
+        var arr = [1, 5, 10, 15].findIndex(function(value, index, arr){
+            return value > 9;
+        });
+        console.log(arr);               // 输出为: 2
+      ```
+      
+      注意: ES5中的 indexOf 方法无法识别数组的NaN成员, 但是 findIndex 方法可以借助 Object.is 方法做到, 例如: 
+      
+      ```javascript
+        [NaN].indexOf(NaN);                         // 输出为: -1
+        [NaN].findIndex(function(value){
+            return Object.is(NaN, value);           // 输出为: 0
+        });
+      ```
+      
+ 4. 填充数组 ( fill )
+ 
+    fill ( ) 使用给定值, 填充一个数组, 例如: 
+
+    ```javascript
+        var arr = ["a", "b", "c"].fill(7);  
+        console.log(arr);                   // 输出为: [7, 7, 7];
+        var str = new Array(3).fill(7);
+        console.log(str);                   // 输出为: [7, 7, 7];
+    ```
+    
+    fill ( ) 方法对于数组中已有的元素, 在填充的过程中, 会全部抹去;
+    
+    fill ( ) 方法还可以接收第二个和第三个参数, 用于指定填充的起始位置和结束位置, 例如: 
+    
+    ```javascript
+        var arr = ["a", "b", "c"].fill(7, 1, 2);
+        console.log(arr);                   // 输出为: ["a", 7, "c"]
+    ```
+    
+ 5. 三个新的遍历方法
+ 
+    以下三个
+
+    - entries (  ) : 
+    
+      对键值对的遍历
