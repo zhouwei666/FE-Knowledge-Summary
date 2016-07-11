@@ -5,6 +5,8 @@ Tags：ES6学习总结
  - [(一) 变量与字符串](#一-变量与字符串)
  - [(二) 数值](#二-数值)
  - [(三) 数组](#三-数组)
+ - [(四) 对象](#四-对象)
+ - [(五) 函数](#五-函数)
 
 ### (一) 变量与字符串
 
@@ -429,8 +431,209 @@ Tags：ES6学习总结
     
  5. 三个新的遍历方法
  
-    以下三个
+    以下三个方法都返回一个遍历器, 可以用 for...of 循环进行遍历
 
     - entries (  ) : 
     
-      对键值对的遍历
+      对 键值对 的遍历, 例如: 
+      
+      ```javascript
+        for(var i of ["a", "b"].entries()){
+            console.log(i);         // 输出为: [0, "a"] [1, "b"]
+        }
+        for(var [index, value] of ["a", "b"].entries()){
+            console.log(index + "--" + "value");
+            // 输出为: 
+            0--"a"
+            1--"b"
+        }
+      ```
+      
+    - keys ( ) : 
+    
+      对 键名 的遍历, 例如: 
+      
+      ```javascript
+        for(var index of ["a", "b"].keys()){
+            console.log(index);         // 输出为: 0 1
+        }
+      ```
+      
+    - values ( ) : 
+    
+      对 键值 的遍历, 例如: 
+      
+      ```javascript
+        for(var value of ["a", "b"].values()){
+            console.log(value);         // 输出为: "a" "b"
+        }
+      ```
+      
+
+### (四) 对象
+
+ 1. 属性的简洁表示法
+ 
+    ES6 允许直接写入变量和函数, 例如: 
+
+    能够返回多个值
+
+    ```javascript
+        function printNum(x, y){
+            var xx = x;
+            var yy = y;
+            return {xx, yy};                  // 输出为: {xx: x, yy: y}
+        }
+        相当于 : 
+        function printNum(x, y){
+            return {x: x, y: y};
+        }
+    ```
+    
+    对象中的方法简洁写法
+    
+    ```javascript
+        var person = {
+            name: "Andraw",
+            getName() {
+                console.log(this.name);
+            }
+        }
+        person.getName();                   // 输出为: Andraw
+    ```
+    
+    
+ 2. 属性名表达式
+
+    在 javascript 中定义对象的属性, 有两种方法, 例如: 
+    
+    ```javascript
+        var obj = {};
+        // 方法一
+        obj.foo = true;
+        // 方法二
+        obj["a"+"bc"] = "Andraw";
+        console.log(obj);               // 输出为: {foo: true, "abc": "Andraw"}
+    ```
+    
+    方法一是直接用标识符作为属性名, 方法二是用表达式作为属性名
+    
+    如果是使用字面量定义对象 ( 使用大括号 ), 在ES5中只能使用方法一 ( 标识符 ) 定义属性, 例如: 
+    
+    ```javascript
+        var obj = {
+            foo: true,
+            name: "Andraw"
+        }
+    ```
+    
+    在ES6中允许字面量定义对象时, 使用方法二 ( 表达式 ) 作为对象的属性名, 即把表达式放在方括号内, 例如: 
+    
+    ```javascript
+        let proKey = 'key'; 
+    
+        let obj = {
+            [proKey]: true,
+            ['a'+'bc']: 123
+        };
+        console.log(obj);           // 输出为: {key: true, abc: 123}
+    ```
+    
+    表达式还可以用于定义方法名, 例如: 
+    
+    ```javascript
+        let obj = {
+            ["name"]: 20,               // 会报错, 因为没有name这个变量
+            ["get"+"Name"]() {          // 不会报错, 因为表达式可用于定义方法名
+                console.log("Success ! ! !");
+            }
+        }
+    ```
+    
+ 3. 比较两个值是否严格相等
+
+    Object.is( ) 用来比较两个值是否严格相等, 它与严格比较运算符( === ) 的行为基本一致, 不同之处只有两个地方: 一是 +0 不等于 -0 , 二是 NaN 等于自身, 例如: 
+    
+    ```javascript
+        +0 === -0;                          // 输出为: true
+        NaN === NaN                         // 输出为: false
+        
+        Object.is(+0, -0);                  // 输出为: false
+        Object.is(NaN, NaN);                // 输出为: true
+    ```
+    
+ 4. 源对象的所有可枚举属性, 复制到目标对象
+
+    Object.assign ( ) 方法用来将源对象 ( source ) 的所有可枚举属性, 复制到目标对象 ( target ), 至少需要两个对象作为参数, 第一个参数是目标对象, 后面的参数都是源对象, 只要有一个参数不是对象, 就会抛出 TypeError 错误, 例如: 
+    ```javascript
+        var target = {a: 1};
+        var source1 = {b: 2};
+        var source2 = {c: 3};
+        Object.assign(target, source1, source2);
+        console.log(target);                // 输出为: {a: 1,b: 2,c: 3};
+    ```
+    
+    如果目标对象与源对象有同名属性, 或多个源对象有同名属性, 则后面的属性会覆盖前面的属性, 例如: 
+    
+    ```javascript
+        var target = {a: 1, b: 1};
+        var source1 = {b: 2, c: 2};
+        var source2 = {c: 3};
+        Object.assign(target, source1, source2);
+        console.log(target);                // 输出为: {a: 1, b: 2, c: 3}
+    ```
+    
+ 5. Symbol 类型
+
+    ES6 引入了一种新的原始数据类型 Symbol, 表示独一无二的 ID, 凡是属性名属于 Symbol 类型, 就都是独一无二的, 可以保证不会与其他属性名产生冲突, 例如: 
+    
+    ```javascript
+        var s = Symbol();
+        console.log(typeof s);              // 输出为: symbol
+    ```
+    
+    注意: Symbol 函数前不能使用 new 命令, 否则会报错, 这是因为生成的 Symbol
+是一个 原始类型的值 , 不是对象, 另外 Symbol 类型的值不能与其他类型的值进行运算, 会报错, 例如: 
+
+
+    ```javascript
+        var sym = Symbol("name");
+        console.log(sym);                           // 输出为: symbol(name)
+        console.log("Your name is "+sym);           // 报错: TypeError: can't convert symbol to string
+        console.log("Your name is ${sym}");         // 报错: TypeError: can't convert symbol to string
+    ```
+    
+    但是, Symbol 类型的值可以转为字符串, 例如: 
+    
+    ```javascript
+        var sym = Symbol("name");
+        console.log(String(sym));                   // 输出为: symbol(name)
+        console.log(sym.toString());                // 输出为: symbol(name)
+    ```
+    
+
+### (五) 函数
+
+ 1. 默认参数
+
+    ES6 能够在函数的参数里设置默认值, 例如: 
+    
+    ```javascript
+        function setName(name="Andraw"){
+            var personName = name;
+            console.log(personName);
+        }
+        setName();                          // 输出为: "Andraw"
+        setName("Tom");                     // 输出为: "Tom"
+    ```
+    
+ 2. reset 参数
+
+    reset 参数 ( 形式为: "...变量名" ) 可以称为不定参数, 用于获取函数的多余的参数, 这样就不需要使用 arguments 对象, 另外 reset 参数搭配的变量是一个数组, 该变量将多余的参数放入数组中, 例如: 
+    
+    ```javascript
+        function getMessage(...person){
+            console.log(person);
+        }
+        getMessage("Andraw", 18, "本科");           // 输出为: ["Andraw", 18, "本科"]
+    ```
