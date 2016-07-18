@@ -637,3 +637,230 @@ Tags：ES6学习总结
         }
         getMessage("Andraw", 18, "本科");           // 输出为: ["Andraw", 18, "本科"]
     ```
+        
+ 3. 扩展运算符
+    
+    扩展运算符 ( spread ) 是三个点 (...), 它就相当于 reset 参数的逆运算, 将一个数组转为用逗号分隔的参数序列, 主要用于 函数调用 , 另外它也允许传递数组或者类数组直接作为参数而不用通过 apply ,例如: 
+
+    ```javascript
+        var people = ["张三", "李四", "王五"];
+        
+        // sayHello 函数本来接收三个单独的参数people1, people2, people3
+        function sayHello(people1, people2, people3){
+            console.log(`Hello ${people1}, ${people2}, ${people3}`);
+        }
+        
+        // 在 ES5 中需要使用 apply 方法来把数组作为参数传进函数里面调用
+        sayHello.apply(null, people);       // 输出为: Hello 张三, 李四, 王五
+        
+        // 在 ES6 中则则可以直接使用扩展运算符把数组作为参数进行传入
+        sayHello(...people);                // 输出为: Hello 张三, 李四, 王五
+    ```
+    
+ 4. 箭头函数
+
+    箭头函数是使用 => 语法的函数简写形式, 这与 CoffeeScript 的相关特性非常相似;
+    
+    - 单参数情况, 例如: 
+    
+      ```javascript
+        // ES5 的写法
+        var f = function(v){
+            return v;
+        }
+        // ES6 的写法
+        var f = v => v;
+      ```
+      
+    - 多参数情况, 例如: 
+    
+      ```javascript
+        var f = (a, b) => {
+            console.log(a);
+            console.log(b);
+        }
+      ```
+      注意: 在箭头函数中, 需要用到 { } 括号来把代码块包住;
+      
+    另外, 箭头函数有几个使用注意点: 
+    
+    - 函数体内的 this 对象, 绑定定义时所在的对象, 而不是使用时所在的对象;
+    - 不可以当作构造函数, 即不可以使用 new 命令, 否则会抛出一个错误;
+    - 不可以使用 arguments 对象, 该对象在函数体内不存在;
+    
+    上面三点中, 第一点尤其值得注意, this对象的指向是可变的, 但是在箭头函数中, 它是固定的;
+    
+
+ 5. 函数绑定
+
+    函数绑定运算符使用并排的两个双引号 ( :: ) , 双引号左边是一个对象, 右边是一个函数, 该运算符会自动将左边的对象, 作为上下文环境 ( 即 this 对象 ) , 绑定到右边的函数上面, 例如: 
+    
+    ```javascript
+        var foo = {
+            name: "Tom"
+        };
+        var name = "Andraw";
+        function bar(){
+            console.log(this.name);
+        }
+        bar();                          // 输出为: Andraw
+        foo::bar();                     // 输出为: Tom
+    ```
+    
+    另外, 对于有多个参数的函数时, 例如: 
+    
+    ```javascript
+        // ES6 写法
+        foo::bar(...arguments);
+        // 相当于以下 ES5 写法
+        bar.apply(foo, arguments);
+    ```
+    
+
+### (六) Set
+
+ 1. 基本用法
+
+    数据结构 Set 类似于数组, 但是成员的值都是唯一的, 没有重复的值, 例如: 
+    
+    ```javascript
+        var arr = new Set([1, 2, 2, 3]);
+        console.log(arr);                   // 输出为: 1, 2, 3
+    ```
+    
+    另外, 向 Set 加入值的时候, 不会发生类型转换, 所以 5 和 " 5 " 是两个不同的值, 例如: 
+    
+    ```javascript
+        var arr = new Set([1, 2, 2, 3, "3"]);
+        console.log(arr);                   // 输出为: 1, 2, 3, "3"
+    ```
+    
+    还有种特殊情况就是, 由于两个空对象不是精确相等, 所以它们被视为两个值, 例如: 
+    
+    ```javascript
+        var arr = new Set();
+        arr.add({});
+        console.log(arr.size);              // 输出为: 1
+        arr.add({});
+        console.log(arr.size);              // 输出为: 2
+    ```
+    
+ 2. Set 实例的属性
+
+    Set 结构的实例有以下属性: 
+    
+    - Set.prototype.constructor: 构造函数, 默认就是 Set 函数;
+    - Set.prototype.size: 返回 Set 实例的成员总数;
+    
+ 3. Set 实例的方法
+
+    Set 实例的方法分为两大类: 操作方法 ( 用于操作数据 ) 和 遍历方法 ( 用于遍历成员 )
+    
+    操作方法: 
+    
+    - add ( value ) : 添加某个值, 返回 Set 结构本身;
+    - delete ( value ) : 删除某个值, 返回一个布尔值, 表示删除是否成功;
+    - has ( value ) : 返回一个布尔值, 表示该值是否为 Set 的成员;
+    - clear (  ) : 清除所有成员, 没有返回值;
+    
+    ```javascript
+        var s = new Set();
+        s.add(1).add(2).add(2);
+        s.has(1);                   // 输出为: true
+        s.has(2);                   // 输出为: true
+        s.has(3);                   // 输出为: false
+        s.delete(2);                // 输出为: true
+        s.delete(3);                // 输出为: false
+        s.has(2);                   // 输出为: false
+    ```
+    
+    另外, Array.form 方法可以将 Set 结构转为数组: 
+    
+    ```javascript
+        var arr = new Set([1, 2, 2, 3]);
+        console.log(Array.from(arr));           // 输出为: [1, 2, 3]
+    ```
+    
+    遍历方法: 
+    
+    - keys ( ) : 返回一个键名的遍历器;
+    - values ( ) : 返回一个键值的遍历器;
+    - entries ( ) : 返回一个键值对的遍历器;
+    - forEach ( ) : 使用回调函数遍历每个成员;
+    
+    ```javascript
+        var arr = new Set([1, 2, 2, 3]);
+        arr.forEach(function(item){
+            console.log(item);                  // 输出为: 1 2 3
+        })
+    ```
+    
+ 4. WeakSet
+
+    WeakSet 和 Set 一样都不存储重复的元素, 但有些不同点, 使用 WeakSet 存储的成员只能是对象, 而不是其他类型的值, 例如: 
+    
+    ```javascript
+        var ws = new WeakSet();
+        ws.add(1);              // 报错: TypeError: Invalid value used in weak set
+    ```
+    
+    主要有以下三个方法: 
+    
+    - add ( value ) : 向 WeakSet 实例添加一个新成员;
+    - delete ( value ) : 清除 WeakSet 实例的指定成员;
+    - has ( value ) : 返回一个布尔值, 表示某个值是否存在;
+    
+    另外, WeakSet 没有 size 属性, 没有方法遍历它的成员;
+    
+    
+### (七) Map
+
+ 1. 实例的属性和操作方法
+
+    - size : 返回成员总数;
+    - set ( key, value ) : 设置 key 所对应的键值, 然后返回整个 Map 结构, 如果 key 已经有值, 则键值会被更新, 否则就新生成该键;
+    - get ( key ) : 读取 key 对应的键值, 如果找不到 key , 返回 undefined;
+    - has ( key ) : 返回一个布尔值, 表示某个键是否在 Map 数据结构中;
+    - delete ( key ) : 删除某个键, 返回true, 如果删除失败, 返回 false;
+    - clear ( ) : 清除所有成员, 没有返回值;
+    
+    set ( ) 方法返回的是 Map 本身, 因此可以采用 链式写法;
+    
+    ```javascript
+        var m = new Map();
+        m.set("edition", 6)                 // 键是字符串
+        .set(262, "standard")               // 键是数值
+        .set(undefined, "haha");            // 键是undefined
+        var hello = function(){
+            console.log("hello");
+        }
+        m.set(hello, "Hello");              // 键是函数
+        
+        m.has("edition");                   // 输出为: true
+        m.has("years");                     // 输出为: false
+        m.has(262);                         // 输出为: true
+        m.has(undefined);                   // 输出为; true
+        m.has(hello);                       // 输出为: true
+        
+        m.get(hello);                       // 输出为: Hello
+        m.get("edition");                   // 输出为: 6
+        
+        m.clear();                      
+        console.log(m.size);                // 输出为: 0
+    ```
+    
+ 2. 遍历方法
+
+    Map 原生提供三个遍历器: 
+    
+    - keys ( ) : 返回键名的遍历器;
+    - values ( ) : 返回键值的遍历器;
+    - entries ( ) : 返回所有成员的遍历器;
+    
+    ```javascript
+        var map = new Map([
+            ['F', 'no'],
+            ['T', 'yes']
+        ]);
+        console.log(map);           // 输出为: Map {"F" => "no", "T" => "yes"}
+    ```
