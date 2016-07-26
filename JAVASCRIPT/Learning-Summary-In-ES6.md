@@ -7,6 +7,9 @@ Tags：ES6学习总结
  - [(三) 数组](#三-数组)
  - [(四) 对象](#四-对象)
  - [(五) 函数](#五-函数)
+ - [(六) Set](#六-set)
+ - [(七) Map](#七-map)
+ - [(八) Iterator ( 遍历器 ) 和 For...Of...]()
 
 ### (一) 变量与字符串
 
@@ -863,4 +866,112 @@ Tags：ES6学习总结
             ['T', 'yes']
         ]);
         console.log(map);           // 输出为: Map {"F" => "no", "T" => "yes"}
+
+        for(var key of map.keys()){
+            consolo.log(key);       // 输出为: "F" "T" 
+        }
+        for(var value of map.values()){
+            console.log(value);     // 输出为: 'no' 'yes'
+        }
+        for(var arr of map.entries()){
+            console.log(arr);       // 输出为: ['F', 'no'] ['T', 'yes']
+        }
     ```
+Map 结构转为数组结构, 比较快速的方法是结合使用扩展运算符 ( ... ) , 例如:
+    
+    ```javascript
+        var map = new Map([
+            ['F', 'no'],
+            ['T', 'yes']
+        ]);
+        console.log([...map.keys()]);       // 输出为: ['F', 'T']
+        console.log([...map.values()]);     // 输出为: ['no', 'yes']
+        console.log([...map.entries()]);    // 输出为: [['F', 'no'], ['T', 'yes']]
+        console.log([...map]);              // 输出为: [['F', 'no'], ['T', 'yes']]
+    ```
+    
+    Map 也有一个 forEach 方法, 与 Set 结构的 forEach 方法类似, 也可以实现遍历;
+    
+ 3. WeakMap
+
+    WeakMap 结构与 Map 结构基本类似, 唯一的区别是它只接受对象作为键名 ( null 除外 ) , 不接受原始类型的值作为键名, 而且键名所指向的对象, 不计入垃圾回收机制, 例如: 
+    
+    ```javascript
+        var map = new WeakMap(),
+            element = document.querySelector(".element");
+            
+        map.set(element, 'origin');
+        
+        var value = map.get(element);
+        console.log(value);                     // 输出为: origin
+    ```
+    
+    另外, WeakMap 与 Map 在 API 上的区别主要是两个: 
+    
+    - 没有遍历操作 ( 即没有key( ), values( ), entries( )方法, 也没有 size 属性 );
+    - 无法清空, 即不支持 clear 方法, 这与 WeakMap 的键不被计入引用, 被垃圾回收机制忽略有关;
+    
+    因此, WeakMap 只有四个方法可用: get( ), set( ), has( ), delete( );
+    
+    
+### (八) Iterator ( 遍历器 ) 和 For...Of...
+
+
+ Iterrator 的遍历过程: 
+ 
+  - 创建以恶搞指针, 指向当前数据结构的起始位置, 也就是说, 遍历器的返回值是一个指针对象;
+  - 第一次嗲用指针对象的 next 方法, 可以将指针指向数据结构的第一个成员;
+  - 第二次调用指针对象的 next 方法, 指针就指向数据结构的第二个成员;
+  - 调用指针对象的 next 方法, 直到它指向数据结构的第二个成员;
+
+ 另外, Iterator 接口主要供 For...Of... 消费
+ 
+ 
+ 1. 数据结构的默认 Iterator 接口
+
+    在 ES6 中, 可迭代的数据结构( 比如数组 ) 都必须实现一个名为 Symbol.iterator 的方法， 该方法会返回一个该结构元素的迭代器, 使用 next() 方法进行遍历后返回的对象中会包含了两个属性: value ( 表示遍历对象中的值 )和 done ( 表示是否遍历结束, 即值为false时表示遍历还没结束 ), 例如: 
+    
+    ```javascript
+        var arr = [1, 2, 3];
+        var iter = arr[Symbol.iterator]();
+        console.log(iter);             // 输出为: ArrayIterator {}
+        
+        console.log(iter.next());      // 输出为: {value: 1, done: false}
+        console.log(iter.next());      // 输出为: {value: 2, done: false}
+        console.log(iter.next());      // 输出为: {value: 3, done: false}
+        console.log(iter.next());      // 输出为: {value: undefined, done: true} 表示遍历结束
+    ```
+    
+    另外, 变量 arr 是一个数组, 原生就具有遍历器接口, 部署在arr的 Symbol.iterator 属性上面;
+    
+
+ 2. 调用默认 Iterator 接口的场合
+
+    - 解构赋值
+    
+      对数组和 Set 结构进行解构赋值时, 会默认调用 iterator 接口
+      
+      ```javascript
+        var arr = new Set("123");
+        var [x, y] = arr;
+        console.log([x, y]);              // 输出为: [1, 2];
+      ```
+      
+    - 扩展运算符
+    
+      扩展运算符 (...) 也会调用默认的 iterator 接口, 例如: 
+      
+      ```javascript
+        var str = "123";
+        console.log([...str]);            // 输出为: ['1', '2', '3'];
+        var arr = ['a', 'b'];
+        console.log(['a', ...arr]);       // 输出为: ['a', 'a', 'b'];
+      ```
+      
+    - 其他场合会调用默认的 iterator 接口的还有: 
+    
+      + yield*
+      + Array.from()
+      + Map(), Set(), WeakMap(), WeakSet()
+      + Promise.all(), Promise race()
+ 
