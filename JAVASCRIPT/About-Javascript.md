@@ -191,6 +191,7 @@ function SuperType(name){
       专门为 Node.js 开发的一个封装库, 提供跨平台的异步 I/O 能力;
       
     架构体系图如下: 
+    
     ![NodeJs架构体系图](http://7xs89l.com1.z0.glb.clouddn.com/Know-more-about-Node.jpeg)
     
  2. Node 核心模块
