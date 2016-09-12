@@ -17,6 +17,7 @@ summary: About Javascript
  - [(八) get和post区别](#八-get和post区别)
  - [(九) 基本数据类型](#九-基本数据类型)
  - [(十) this使用的场景](#十-this使用场景)
+ - [(十一) 了解Node核心](#十一-了解node核心)
 
 ### (一) 解决跨域问题
 
@@ -169,3 +170,58 @@ function SuperType(name){
  2. 函数当成方法调用时, this指向拥有这个方法的对象;
  3. 函数当成构造函数调用时, this指向刚刚分配的新对象;
  4. 通过apply()和call()方法调用时, this指向传进去的第一个对象;
+
+
+### (十一) 了解Node核心
+
+ 1. Node 体系架构: 
+ 
+    主要分为四个部分: 
+
+    - Node Standard Library
+      这是我们常用的一些标准库, 例如 Http, Buffer 模块;
+    
+    - Node Bindings
+      沟通 JS 和 C++ 的桥梁, 封装 V8 和 Libuv 的细节, 向上层提供基础 API 服务;
+      
+    - V8
+      V8 是Google开发的 JavaScript 引擎, 提供 JavaScript 的运行环境, 可以说它就是 Node.js 的发动机;
+      
+    - Libuv
+      专门为 Node.js 开发的一个封装库, 提供跨平台的异步 I/O 能力;
+      
+    架构体系图如下: 
+    ![NodeJs架构体系图](http://7xs89l.com1.z0.glb.clouddn.com/Know-more-about-Node.jpeg)
+    
+ 2. Node 核心模块
+ 
+    - Global 对象( 全局对象 )
+
+      + process对象: 用于描述当前 NodeJs 进程状态的对象, 提供一个与操作系统的简单接口;
+      + console 对象: 用于提供控制台的标准输出;
+      + Buffer 对象: 用来处理二进制数据的, 比如图片, mp3, 数据库文件等, Buffer 支持各种编码解码, 二进制字符串互转;
+      + setTimeout 和 clearTimeout等定时功能函数;
+      
+    - EventEmitter
+    
+      + 定义: EventEmitter 是 Node 中一个实现观察者模式的类, 主要功能是监听和发射消息, 用于处理多模块交互问题;
+      + 典型应用: 模块间传递消息; 回调函数内外传递消息; 处理数据流; 观察者模式发射触发机制相关应用;
+      
+    - Stream
+    
+      Stream 是基于事件 EventEmitter 的数据管理模式, 由各种不同的抽象接口组成, 主要包括可写, 可读, 可读写, 可转换等几种类型;
+      
+    - Fs( 文件系统模块 )
+      读写一个文件方法: 
+      + POSIX式低层读写;
+      + 流式读写;
+      + 同步文件读写;
+      + 异步文件读写;
+      
+    - Net ( 网络模块 )
+    
+      Node 全面支持各种网络服务器和客户端, 包括TCP, http/https, UDP, DNS等;
+      
+ 3. Node 中的异步和同步理解
+
+    Node 是单线程的, 异步是通过一次次的循环事件队列[ ( Event Loop ) ](https://github.com/jasonliao/prepare-for-interview/blob/master/JavaScript/event-loop.md)来实现的, 同步则是说阻塞式的 IO , 这在高并发环境会是一个很大的性能问题, 所以同步一般只在基础框架的启动时使用, 用来加载配置文件以及初始化文件等;

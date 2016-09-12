@@ -11,7 +11,7 @@ summary: About Others
  - [(二) 栈(stack)和堆(heap)的区别](#二-栈stack和堆heap区别)
  - [(三) 快排实现](#三-快排实现)
  - [(四) Jquery源码简单分析](#四-jquery源码简单分析)
- - [(五) ES6简单了解](#五-ES6简单了解)
+ - [(五) ES6简单了解](#五-es6简单了解)
 
 ### (一) 栈(stack)和队列(queue)区别
 
