@@ -12,7 +12,7 @@ summary: About Network
  - [(三) 缓存](#三-缓存)
  - [(四) CDN工作流程 ( DNS域名解析过程 )](#四-cdn工作流程)
  - [(五) 一个http请求发送到后台的详细过程](#五-一个http请求发送到后台的详细过程)
- - [(六) HTTP与HTTPS区别](#五-http与https区别)
+ - [(六) HTTP与HTTPS区别](#六-http与https区别)
 
 ### (一) HTTP定义,特点,请求响应和状态码
 
